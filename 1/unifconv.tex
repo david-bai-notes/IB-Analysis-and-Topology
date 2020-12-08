@@ -1,0 +1,212 @@
+\section{Uniform Convergence}
+\begin{definition}
+    A complex sequence $x_n$ is said to converge to a complex number $x$ if $\forall\epsilon>0,\exists N\in\mathbb N$ such that $\forall n>N$, $|x-x_n|<\epsilon$.
+\end{definition}
+\begin{definition}
+    Let $S$ be a set and let $f_n:S\to\mathbb C$ be a sequence of functions.
+    Let $f:S\to\mathbb C$ be a function.
+    We say $f_n\to f$ pointwise if for any $x$, $f_n(x)\to f(x)$.
+    In other words, $\forall x\in S, \forall\epsilon>0, \exists N\in\mathbb N, \forall n>N$, $|f(x)-f_n(x)|<\epsilon$.
+\end{definition}
+\begin{example}
+    Let $S$ be the closed interval $[0,1]$ and $f_n(x)=x^n$, then $f_n\to f$ pointwise where
+    $$f(x)=
+    \begin{cases}
+        1\textit{, if $x=1$}\\
+        0\textit{, otherwise}
+    \end{cases}$$
+\end{example}
+Note that in this example, despite the fact that all of $f_n$ are continuous, even smooth, the resulting limit $f$ needs not be continuous.\\
+Here is another example:
+\begin{example}
+    Let $S=\mathbb R_{\ge 0}$ and let $f_n(x)=x^2e^{-nx}$, then $f_n\to 0$ pointwise, since
+    $$0\le |f_n(x)|=\frac{x^2}{e^{nx}}= \frac{x^2}{1+nx+\frac{n^2x^2}{2}+\frac{n^3x^3}{6}\cdots}\le\frac{x^2}{nx}=\frac{x}{n}\to0$$
+    as $n\to\infty$.
+\end{example}
+There is another form of convergence, called uniform convergence, which is defined as follows:
+\begin{definition}
+    Let $S$ be a set and let $f_n:S\to\mathbb C$ be a sequence of functions.
+    Let $f:S\to\mathbb C$ be a function.
+    We say $f_n\to f$ uniformly if $\forall\epsilon>0, \exists N\in\mathbb N, \forall n>N, \forall x\in S, |f(x)-f_n(x)|<\epsilon$.
+\end{definition}
+Note that the only difference between pointwise and uniform convergence is that the large integer $N$ does not depend on $x$ if the convergence is uniform.
+Note also that uniform convergence implies pointwise convergence, but not the other way around.
+Although it does not seem to be such a great difference in definition, in practice, it makes all the difference in the world.
+\begin{proposition}
+    The sequence in the first example, i.e. $f_n:[0,1]\to\mathbb R$ with $f_n(x)=x^n$, does not converge uniformly.
+\end{proposition}
+\begin{proof}
+    We can take for example $\epsilon=1/2$. Then for any $n\in\mathbb N$, we can take $x=\sqrt[n]{2/3}$, so that we have
+    $$|f_n(x)-f(x)|=|f_n(x)|=\frac{2}{3}>\frac{1}{2}$$
+    So the claimed $N$ does not exist.
+    Therefore the sequence $f_n$ does not converge uniformly.
+\end{proof}
+\begin{proposition}
+    The sequence in the second example, i.e. $f_n=\mathbb R_{\ge 0}\to\mathbb R$ where $f_n(x)=x^2e^{-nx}$, converge absolutely.
+\end{proposition}
+\begin{proof}
+    Note that
+    $$0\le f_n(x)=\frac{x^2}{e^{nx}}=\frac{x^2}{1+nx+\frac{n^2x^2}{2}+\cdots}\le\frac{x^2}{n^2x^2/2}=\frac{2}{n^2}$$
+    Therefore for any $\epsilon>0$, we can take $N=\lceil\sqrt{2/\epsilon}\rceil$, so for any $x\ge 0, n>N$, we ahve
+    $$|f(x)-f_n(x)|=|f_n(x)|=f_n(x)\le\frac{2}{n^2}<\frac{2}{N^2}\le\frac{2}{(\sqrt{2/\epsilon})^2}=\epsilon$$
+    So $f_n\to 0$ uniformly.
+\end{proof}
+In fact, although continuous functions may not converge pointwise to a continuous function, they do converge uniformly to one.
+\begin{theorem}
+    Let $S\subset\mathbb C$ be open.
+    Suppose that $f_n:S\to\mathbb C$ is a sequence of continuous functions.
+    If $f_n\to f$ uniformly, then $f$ is continuous as well.
+\end{theorem}
+\begin{proof}[Informal sketch]
+    Idea: Transfer the nice property of $f_n$ to $f$.
+    Choose large enough $N$ such that $f_n-f$ is arbitratily small for all $n>N$.
+    We can always choose $x'$ close to $x$ where $f_n(x)$ close to $f(x)$.
+    Then just use triangle inequality.
+    "3-$\epsilon$ proof"
+\end{proof}
+\begin{proof}
+    $\forall\epsilon>0$, we can choose large enough $N$ such that $\sup|f_n-f|<\epsilon/3$
+    We can choose $\delta>0$ such that $|x-x'|<\delta\implies |f_n(x)-f_n(x')|<\epsilon/3$.
+    $$|f(x)-f(x')|\le |f(x)-f_n(x)|+|f(x')-f_n(x')|+|f_n(x)-f_n(x')|<3\frac{\epsilon}{3}=\epsilon$$
+    As desired.
+\end{proof}
+\begin{remark}
+    1. We can use this theorem to show that $x^n$ as in the previous example does not converge uniformly.\\
+    2. It is not true that differentiability is preserved under unform convergence.
+\end{remark}
+\begin{theorem}
+    Let $f_n:[a,b]\to\mathbb R$ be all Riemann integrable.
+    Then if it converges uniformly, its limit is also Riemann integrable.
+    Furthermore,
+    $$\int_a^b\lim_{n\to\infty} f_n(x)\,\mathrm dx=\lim_{n\to\infty}\int_a^b f_n(x)\,\mathrm dx$$
+\end{theorem}
+Recall that a function is Riemann integerable if and only if the upper and lower sums of $f$ on the interval can be arbitratily close.
+\begin{proof}
+    Firstly $f$ is bounded. Since $f_n$ are bounded, we can just choose large enough $n$ such that $|f_n-f|<1$ and $|f_n|<M$, then
+    $|f|\le|f-f_n|+|f_n|<\epsilon+M<M+1$ so $f$ is bounded.\\
+    For $\epsilon>0$ choose $N$ such that $\sup|f_n-f|<\epsilon/(3(b-a))$ for any $n>N$.
+    Since $f_n$ is integrable, there is some disection $D$ of the interval $[a,b]$ such that $U_D(f_n)-L_D(f_n)<\epsilon/3$.
+    We have
+    $$|L_D(f)-L_D(f_n)|=\sum_{(x_i)\in D}\left|\inf_{x\in[x_i, x_{i+1}]}f(x)-\inf_{x\in[x_i, x_{i+1}]}f_n(x)\right|(x_{i+1}-x_i)<\epsilon/3$$
+    Similarly $|U_D(f)-U_D(f_n)|<\epsilon/3$.
+    So
+    \begin{align*}
+        |U_D(f)-L_D(f)|&\le|U_D(f)-U_D(f_n)|\\
+        &+|L_D(f_n)-L_D(f)|+|U_D(f_n)-L_D(f_n)|\\
+        &<3\epsilon/3=\epsilon
+    \end{align*}
+    This shows that $f$ is integrable.
+    Finally, we have
+    $$|\int_a^bf(x)-f_n(x)\,\mathrm dx|\le \int_a^b\sup|f(x)-f_n(x)|\,\mathrm dx<\epsilon/3<\epsilon$$
+    which completes the proof.
+\end{proof}
+\begin{remark}
+    1. For uniform convergence, we can swap the integral and the limit.\\
+    2. If $f_n\to f$ uniformly and that all $f_n$ is bounded, then $f$ is bounded.
+\end{remark}
+\begin{corollary}
+    For uniform convergence, we can swap infinite sums and integral.
+    That is, if $f_n:[a,b]\to\mathbb R$ is a sequence of integrable functions whose partial sum converges absolutely to some function $f$, then $f$ is integrable and
+    $$\int_a^bf(x)\,\mathrm dx=\sum_{n=1}^\infty\int_a^bf_n(x)\,\mathrm dx$$
+\end{corollary}
+\begin{proof}
+    Let
+    $$F_n(x)=\sum_{k=1}^nf_k(x)$$
+    so $F_n$ are integrable and $F_n\to f$ uniformly.
+    Then we can just apply the preceding theorem.
+\end{proof}
+\begin{theorem}
+    Let $f_n:[a,b]\to\mathbb R$ be continuously differentable on $[a,b]$.
+    Assume that the sequence of partial sums of $f^\prime_n$ at every point converges uniformly.
+    And there is an $c\in[a,b]$ such that
+    $$\sum_{n=1}^\infty f_n(c)$$
+    converges, then the sequence of partial sums of $f_n$ converges uniformly.
+    Furthermore, the limit $f$ is continuously differentiable and
+    $$f^\prime(x)=\sum_{n=1}^\infty f^\prime_n(x)$$ 
+\end{theorem}
+\begin{proof}[Sketch of proof]
+    Let
+    $$F_n(x)=\sum_{k=1}^nf_k(x), g(x)=\sum_{n=1}^\infty f^\prime_n(x)$$
+    So we want to find a particular solution to the differential equation $f^\prime=g$, and show that $F_n$ converges unformly to it.
+    So basically we want to do
+    $$f(x)=\int_c^x g(t)\,\mathrm dt+\sum_{n=1}^\infty f_n(c)=\lim_{n\to\infty}F_n(x)=\sum_{n=1}^\infty f_n(x)$$
+    rigorously and it would be done.
+\end{proof}
+\begin{proof}
+    Let
+    $$g(x)=\sum_{n=1}^\infty f^\prime_n(x)$$
+    $g$ is continuous and hence Riemann integrable on $[a,b]$.
+    Define $f:[a,b]\to\mathbb R$ by 
+    $$f(x)=\int_c^xg(t)\,\mathrm dt+\lambda$$
+    where
+    $$\lambda=\sum_{n=1}^\infty f_n(c)$$
+    By FTC, $f$ is differentiable and $f^\prime(x)=g(x)$.
+    Since $g$ is continuous, $f\in\mathcal C^1([a,b])$.
+    It remains to show that the series sum of $f_n(x)$ converges uniformly to $f(x)$.
+    Let $F_n(x)$ be the partial sum of the series, then by estimating its difference with $f$ and the fact that the partial sum of derivatives of $f_n$ converges uniformly (use FTC again), we can show that $F_n\to f_n$ uniformly.
+    [Write details later]
+\end{proof}
+\begin{definition}
+    Let $f_n$ be a sequence of scalar function on a set $S$.
+    We say $f_n$ is uniformly Cauchy on $S$ if $\forall\epsilon>0,\exists N\in\mathbb N,\forall x\in X,\forall n,m>N$,
+    $$|f_n(x)-f_m(x)|<\epsilon$$
+\end{definition}
+\begin{theorem}[General Principle of Uniform Convergence]\label{GP_UnifConv}
+    A sequence of uniformly Cauchy scalar functions $f_n$ on $S$ converges uniformly.
+\end{theorem}
+\begin{proof}
+    Firstly, we shall find a pointwise limit $f$ of $f_n$.
+    The existence of $f$ is immediate since $f_n(x)$ is always Cauchy (hence converges) with $x$ fixed.\\
+    Then we shall show that this convergence is uniform.
+    Choose any $\epsilon>0$, $\exists N\in\mathbb N,\forall x\in X,\forall n,m>N,|f_n(x)-f_m(x)|<\epsilon/2$.
+    Now we fix $x\in S,n>N$, since $f_n\to f$ pointwise, we can choose $m>N$ with $|f_m(x)-f(x)|<\epsilon/2$, then
+    $$|f(x)-f_n(x)|\le |f(x)-f_m(x)|+|f_m(x)-f_n(x)|<2\epsilon/2<\epsilon$$
+    So $f_n\to f$ uniformly.
+\end{proof}
+So what we did is to fix the $x$ and the $n$, then let that $m$ tend to infinity, then we can use the pointwise convergence to give the result.
+This is how we get pass the dependence of $N$ on $x$ in the pointwise convergence result.
+\begin{corollary}
+    Let $f_n$ be a sequence of scalar functions on $S$, let
+    $$\sum_{n=1}^\infty M_n$$
+    be convergent with $M_n\ge 0$.\\
+    If $\sup |f_n|\le M_n$ for any $n$, then
+    $$\sum_{n=1}^\infty f_n$$
+    converges uniformly.
+\end{corollary}
+\begin{proof}
+    Let $F_n$ be the partial sum of $f_n$, $F_n$ is uniformly Cauchy due to the convergence of the series of $M_n$.
+    Essentially, $\forall\epsilon>0,\exists N\in\mathbb N,\forall n,m>N$,
+    $$\sum_{k=n+1}^mM_k<\epsilon$$
+    so
+    $$\sum_{k=n+1}^m|f_n(x)|<\epsilon$$
+    Therefore it is unifomly Cauchy, so it converges uniformly.
+\end{proof}
+Now we consider the power series
+$$\sum_{n=0}^\infty a_n(z-a)^n$$
+$(a_n)_0^\infty$ be a sequence of complex number.
+Let $R$ be the radius of convergence.
+Now on the disk $|z-a|<R$, we consider
+$$f(z)=\sum_{n=0}^\infty a_n(z-a)^n$$
+The question is: is the convergence uniform?
+\begin{example}
+    Consider
+    $$f(z)=\sum_{n=0}^\infty z^n=\frac{1}{1-z}$$
+    where $R=1$.
+    It does not converge uniformly.
+    Indeed, the $N^{th}$ partial sum is bounded by $N+1$ but $1/(1-z)$ is unbounded.
+\end{example}
+\begin{theorem}
+    For any $r$ with $0<r<R$, the series converges uniformly on $D(a,r)$.
+\end{theorem}
+\begin{proof}
+    For $w\in\mathbb C$ such that $r<|w-a|<R$, there is an $M$ such that $|a_n(w-a)^n|<M$ for some $M>0$ and any $n$.
+    We have $|z-a|/|w-a|<1$ for any $z\in D_(a,r)$, hence by taking $M_n=M(r/|w-a|)^n$ shows the result.
+\end{proof}
+The derivative of a power series (we can prove that it is complex differentiable, and we can do it term-by-term) has the same radius of convergence.
+\begin{remark}
+    If we fix $w\in D(a,R)$, we can choose $r$ such that $|w-a|<r<R$.
+    Fix any $\delta>0$ such that $|w-a|+\delta<r$, then $D(w,\delta)\subset D(a,r)$, so
+    $$\sum_{n=0}^\infty a_n(z-a)^n$$
+    converges uniformly on $D(w,\delta)$.
+    We say it is locally uniformly on $D(a,R)$.
+\end{remark}

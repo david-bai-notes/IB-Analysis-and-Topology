@@ -1,0 +1,35 @@
+\section{Uniform Continuity}
+Let $U\in\mathbb C$ and $f$ a scalar function on $U$.
+We know what continuity means in the sense of metric space.
+\begin{definition}
+    We say $f$ is uniformly continuous on $U$ if for any $\epsilon>0,\exists\delta>0,\forall x,y\in U$, $|x-y|<\delta\implies |f(x)-f(y)|<\delta$.
+\end{definition}
+Note that the difference between uniform convergence and our initial form of convergence is that the value of $\delta$ does not depend on the point $x$.
+\begin{example}
+    The standard example that a function is continuous but not uniformly continuous is that $f(x)=x^2$ on $\mathbb R$.
+    To see why, observe that we take $\epsilon=1$, then choose any $\delta>0$,
+    $$(x+\delta/2)^2-x^2=\delta x+\delta^2/4$$
+    We can just choose $x>1/\delta$ and the value would exceed $1$.
+\end{example}
+\begin{theorem}
+    Let $f$ be a scalar function defined on a closed interval $[a,b]$, then if $f$ is continuous then it is uniformly continuous.
+\end{theorem}
+\begin{proof}
+    (Heine-Borel Theorem gives compactness of the interval which provides a direct proof.)\\
+    Assume that it is not the case, so
+    $$\exists\epsilon>0,\forall\delta>0,\exists x,y\in[a,b], |x-y|<\delta\land |f(x)-f(y)|>\epsilon$$
+    Choose such a `bad' $\epsilon$, consider $\delta_n=1/n$ and choose $x_n,y_n$ accordingly.\\
+    By Bolzano-Wiestrass, there is a subsequence $x_{k_m}$ of $x_n$ that converges to some $x$ as $x\to\infty$.
+    Note that since the interval is closed $x\in[a,b]$.
+    Then, $|y_{k_m}-x|\le |x_{k_m}-x|+|x_{k_m}-y_{k_m}|<\frac{1}{k_m}+\epsilon$
+    for any $\epsilon>0$. so $y_{k_m}\to x$.\\
+    Since $f$ is continuous at $x$, there is some $\delta$ such that for every $y\in[a,b]$, $|x-y|<\delta\implies |f(x)-f(y)|<\epsilon/2$.
+    There is some $N$ such that $m>N\implies |x_{k_m}-x|<\delta,|y_{k_m}-x|<\delta$.
+    So $\epsilon<|f(x_{k_m})-f(y_{k_n})|\le |f(x_{k_m})-f(x)|+|f(x)-f(y_{k_m})|<2\epsilon/2=\epsilon$
+    This is a contradiction.
+\end{proof}
+\begin{corollary}
+    A continuous function on a closed interval is integrable.
+\end{corollary}
+It follows that a continuous function on a closed interval is integrable.
+%So given $\epsilon$, by the above theorem, there is some $\delta>0,\forall x,y\in[a,b]$, $|x-y|<\delta\implies |f(x)-f(y)|<\epsilon$, so

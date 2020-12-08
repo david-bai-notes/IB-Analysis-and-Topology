@@ -1,0 +1,339 @@
+\section{Differentiation}
+\begin{definition}
+    Fix $m,n\in\mathbb N$, let $L(\mathbb R^m,\mathbb R^n)$ be the set of linear maps to $\mathbb R^m$ to $\mathbb R^n$.
+    Note that this space is isomorphic to $\mathbb R^{mn}$, both algebraicly and topologically, as we have the metric
+    $$\forall T\in L(\mathbb R^m,\mathbb R^n),\|T\|=\sqrt{\sum_{i=1}^m\sum_{j=1}^n|T_{ij}|^2}=\sqrt{\sum_{i=1}^m\|T{e_i}\|^2}$$
+\end{definition}
+\begin{lemma}\label{mat_norm}
+    (a) Given a linear map $T$, for every $x\in\mathbb R^m$, we have $\forall x\in\mathbb R^m,\|Tx\|\le \|T\|\|x\|$.
+    So $T$ is Lipschitz hence continuous.\\
+    (b) For $S\in L(\mathbb R^m,\mathbb R^n),T\in L(\mathbb R^n,\mathbb R^p)$, $\|TS\|\le \|T\|\|S\|$.
+\end{lemma}
+\begin{proof}
+    (a) If $x=\sum_ix_ie_i$, then
+    $$\|Tx\|=\left\|\sum_{i=1}^mx_iTe_i\right\|\le \sum_{i=1}^m|x_i|\|Te_i\|\le \sqrt{\sum_{i=1}^m|x_i|^2}\sqrt{\sum_{i=1}^m\|Te_i\|^2}=\|x\|\|T\|$$
+    (b) We have
+    $$\|TS\|=\sqrt{\sum_{i=1}^m\|TSe_i\|^2}\le \sqrt{\sum_{i=1}^m\|T\|^2\|Se_i\|^2}=\|T\|\|S\|$$
+    As desired.
+\end{proof}
+Recall that a function $f:\mathbb R\to\mathbb R$ is differentiable at $a$ if $\lim_{h\to 0}(f(a+h)-f(a))/h$ exists.
+So let $\epsilon(h)=(f(a+h)-f(a))/h-f^\prime(a)$, then $f(a+h)=f(a)+f^\prime(a)h+\epsilon(h)h$ and $\epsilon\to 0$ as $h\to 0$.
+We can think of this as $\epsilon(0)=0$ and $\epsilon$ is continuous at $0$.
+So we want to use it to define differentiation in higher dimensions.
+\begin{definition}
+    Given $m,n\in\mathbb N$ and an open set $U\subset\mathbb R^m$, a function $f:U\to\mathbb R^n$ and $a\in U$.
+    We say $f$ is differentiable at $a$ if there is a linear map $T:\mathbb R^m\to\mathbb R^n$ and a function $\epsilon:\{h\in\mathbb R^m:a+h\in U\}\to\mathbb R^n$ such that
+    $$f(a+h)=f(a)+T(h)h+\epsilon(h)\|h\|$$
+    where $\epsilon\to 0$ as $h\to 0$. (Or $\epsilon(0)=0$ and $\epsilon$ is continuous ar $0$).
+\end{definition}
+\begin{remark}
+    $$\epsilon(h)=
+    \begin{cases}
+        0\text{, if $h=0$}\\
+        \frac{f(a+h)-f(a)-T(h)}{\|h\|}\text{, if $h\neq 0$ and $a+h\in U$}
+    \end{cases}$$
+\end{remark}
+Since $U$ is open, $\exists r>0, D_r(a)\subset U$, so $D_r(a)\subset \operatorname{Dom}\epsilon$.
+Note also that our condition on $\epsilon$ is also equivalent to say $\epsilon(h)\|h\|=o(\|h\|)$ as $h\to 0$.\\
+Next, we observe that $T$ (if it exists) is unique.
+Indeed, if both $T,S$ satisfies our condition, then $(S(h)-T(h))/\|h\|\to 0$ as $h\to 0$, so by choosing $h=x/n$ for $n\in\mathbb N$ we have $S=T$.
+\begin{definition}
+    This unique $T$ is called the derivative of $f$ at $a$, denoted by $f^\prime(a)$ or $Df(a)$ or $Df|_a$, so
+    $$f(a+h)=f(a)+f^\prime(a)(h)+o(\|h\|)$$
+\end{definition}
+\begin{definition}
+    We say $f$ is differentiable at $U$ if it is differentiable at $a$ for every $a\in U$.
+    So the derivative of $f$ on $U$ is the map $f^\prime:U\to L(\mathbb R^m,\mathbb R^n)$.
+\end{definition}
+\begin{remark}
+    When $m=1$, $T$ is a linear map $\mathbb R\to\mathbb R^n$, so for $T\in L(\mathbb R^m,\mathbb R^n)$, so b y setting $v=T(1)$, so $\forall x\in\mathbb R,T(x)=xv$.
+    Indeed, $L(\mathbb R,\mathbb R^n)\cong\mathbb R^n$ by $T\mapsto T(1)$.
+    Hence for open $U\subset\mathbb R,f:U\to\mathbb R^n,a\in U$, we have $f$ is differentiable at $a$ if and only if there is some $v\in\mathbb R^n$ with $f(a+h)=f(a)+hv+o(h)$.
+    So $v=f^\prime(a)$.
+\end{remark}
+\begin{example}
+    1. Every constant function is differentiable as we can take $f^\prime(a)\equiv 0\in L(\mathbb R^m,\mathbb R^n)$.
+    2. Every linear map $f$ is differentiable by taking $f'(a)=f\in L(\mathbb R^m,\mathbb R^n)$. for every $a$.\\
+    3. Any bilinear map $f:\mathbb R^m\times\mathbb R^n\to\mathbb R^p$ is differentiable.
+    Indeed, we have
+    $$f((a,b)+(h,k))=f(a+b,h+k)=f(a,b)+f(a,k)+f(h,b)+f(h,k)$$
+    Note that $f(a,k)+f(h,b)$ is linear in $(h,k)$, therefore it remains to checl $f(h,k)=o(\|h\|)$.
+    We see
+    \begin{align*}
+        \|f(h,k)\|&=\left\|f\left( \sum_{i=1}^mh_ie_i, \sum_{j=1}^nk_je_j\right)\right\|\\
+        &\le \sum_{i,j}|h_i||k_j|\|f(e_i,e_j)\|\\
+        &\le \|(h,k)\|^2\sum_{i,j}\|f(e_i,e_j)\|\\
+        &=O(\|(h,k)\|^2)=o(\|(h,k)\|)
+    \end{align*}
+    4. Take $f:\mathbb R^n\to\mathbb R$ by $f(x)=\|x\|^2$, so
+    $$f(a+h)=\|a+h\|^2=\|a\|^2+2\langle a,h\rangle+\|h\|^2=f(a)+2\langle a,h\rangle+o(\|h\|)$$
+    So we can have $f^\prime(a)(h)=2\langle a,h\rangle$.\\
+    5. Let $M_n\cong L(\mathbb R^n,\mathbb R^n)$ be the collection of all $n\times n$ real matrices.
+    Consider $f:M_n\to M_n, A\mapsto A^2$, so
+    $$f(A+H)=A^2+AH+HA+H^2=f(A)+AH+HA+o(\|H\|)$$
+    due to Lemma \ref{mat_norm}.
+    So $f^\prime(A)(H)=AH+HA$.
+\end{example}
+\begin{proposition}
+    Differentiablility implies continuity.
+\end{proposition}
+\begin{proof}
+    Write $f(a+h)=f(a)+f^\prime(a)(h)+\epsilon(h)\|h\|$ where $\epsilon(0)=0$ and $\epsilon$ is continuous at $0$.
+    $f^\prime(a)$ is continuous by Lemma \ref{mat_norm} (which implies every linear map is continuous), so the RHS is continuous in $h$, therefore $h\mapsto f(a+h)$ is continuous at $h=0$, hence $f$ is continuous at $a$.
+\end{proof}
+\begin{proposition}[Chain Rule]
+    Consider open $U\in\mathbb R^m,V\in\mathbb R^n$ and functions $f:U\to\mathbb R^n,g:V\to\mathbb R^m$ and $f(U)\subset V$.
+    If $f$ is differentiable at $a$ and $g$ is differentiable at $f(a)$, then $g\circ f$ is differentiable at $a$ and $(g\circ f)^\prime(a)=g^\prime(f(a))\circ f^\prime(a)$.
+\end{proposition}
+\begin{proof}
+    Let $b=f(a)$ and $S=f^\prime(a),T=g^\prime(b)$, then
+    $$
+    \begin{cases}
+        f(a+h)=f(a)+S(h)+\epsilon(h)\|h\|\\
+        g(b+k)=g(b)+T(k)+\delta(k)\|k\|
+    \end{cases}
+    $$
+    Where $\epsilon(0)=0,\delta(0)=0$ and both of them are continuous at $0$.
+    So 
+    $$(g\circ f)(a)=g(b+S(h)+\epsilon(h)\|h\|)$$
+    Let $k(h)=S(h)+\epsilon(h)\|h\|$, so it equals
+    \begin{align*}
+        g(b)+T(k)+\delta(k)\|k\|&=(g\circ f)(a)+T\circ S(h)\\
+        &+\|h\|T(\delta(h))+\delta(k(h))\|S(h)+\delta(h)\|h\|\|
+    \end{align*}
+    Due to continuity of $\epsilon,\delta$ are continuous at $0$, $\|h\|T(\delta(h))=o(\|h\|)$ and $T(\epsilon(0))=0$, so this term is fine.\\
+    Also, $\delta(k(0))=0$ and $\delta\circ k$ is continuous at $0$.
+    In addition,
+    $$0\le \frac{\|S(h)+\delta(h)\|h\|\|}{\|h\|}\le\frac{\|S(h)\|+\|\epsilon(h)\|\|h\|}{\|h\|}\le \|S\|+\|h\|$$
+    by Lemma \ref{mat_norm}.
+    So
+    $$\lim_{h\to 0}\frac{\delta(k(h))\|S(h)+\delta(h)\|h\|\|}{\|h\|}=0\implies \delta(k(h))\|S(h)+\delta(h)\|h\|\|=o(\|h\|)$$
+    Hence $g\circ f$ is differentiable and its derivative is $T\circ S=g^\prime (b)\circ f^\prime(a)=g^\prime (f(a))\circ f^\prime(a)$.
+\end{proof}
+\begin{proposition}\label{component_diff}
+    $f:U\to\mathbb R^n$ ($U\in\mathbb R^m$ is open) is differentiable if and only if each components $f_j=\pi_j\circ f$ is differentiable at $a$.
+    Also,
+    $$f^\prime(a)(h)=\sum_{j=1}^nf_j^\prime(a)(h)e_j'$$
+\end{proposition}
+\begin{proof}
+    Note that $\pi_j(x)=\langle x,e_j'\rangle$ is linear hence differentiable, thus by chain rule the $\implies$ direction is done.
+    For $\impliedby$, we have for every $j$,
+    $$f_j(a+h)=f_j(a)+f^\prime(a)(h)+\epsilon_j(h)\|h\|$$
+    So
+    \begin{align*}
+        f(a+h)&=\sum_{j=1}^nf_j(a+h)e_j'\\
+        &=\sum_{j=1}^n(f_j(a)+f^\prime(a)(h)+\epsilon_j(h)\|h\|)e_j'\\
+        &=f(a)+\left( \sum_{j=1}^nf_j^\prime(a)(h)e_j' \right)+\left( \sum_{j=1}^n\epsilon_j(h)e_j' \right)\|h\|
+    \end{align*}
+    Since $\epsilon(h)=\sum_{j=1}^n\epsilon_j(h)e_j'$ has $\epsilon(0)=0$ and is continuous at $0$, hence the result.
+\end{proof}
+\begin{proposition}
+    Let $f,g:U\to\mathbb R^n$ where $U\subset\mathbb R^m$ is open and $\phi:U\to\mathbb R$ is differentiable at $a\in U$, then so are $f+g$ and $\phi f:x\mapsto \phi(x)f(x)$, and
+    $$(f+g)^\prime(a)=f^\prime(a)+g^\prime(a)$$
+    $$(\phi f)^\prime(a)(h)=\phi^\prime(a)(h)f(a)+\phi(a)f^\prime(a)(h)$$
+\end{proposition}
+\begin{proof}
+    We have
+    $$f(a+h)=f(a)+f^\prime(a)(h)+\epsilon(h)\|h\|$$
+    $$g(a+h)=g(a)+g^\prime(a)(h)+\delta(h)\|h\|$$
+    $$\phi(a+h)=\phi(a)+\phi^\prime(a)(h)+\eta(h)\|h\|$$
+    Hence
+    $$(f+g)(a+h)=(f+g)(a)+(f^\prime(a)+g^\prime(a))(h)+(\epsilon(h)+\delta(h))\|h\|$$
+    We can do the same thing for products as well which will provide a proof, but we shall give a different proof.
+    Let $F:U\to R\times R^n=R^{n+1}$ by $f(x)=(\phi(x),f(x))$ and $G:R\times R^n\to\mathbb R^n$ by $(a,x)\mapsto ax$.
+    $F$ is differentiable by Proposition \ref{component_diff} and $G$ is differentiable since it is bilinear, therefore $\phi f=G\circ F$ is differentiable and we can obtain the form of the derivative from the chain rule which is the formula as claimed.
+\end{proof}
+\begin{definition}
+    Let $U\subset\mathbb R^m$ be open and $f:U\to\mathbb R^n$.
+    Fix $a\in U$ and a direction (nonzero vector) $u\in\mathbb R^m\setminus\{0\}$.
+    The limit
+    $$\lim_{t\to 0}\frac{f(a+tu)-f(a)}{t}$$
+    if exists, is called the directional derivative of $f$ at $a$ to direction $u$ and is denoted by $D_uf(a)$.
+\end{definition}
+\begin{remark}
+    1. $f(a+tu)=f(a)+tD_uf(a)+o(t)$.\\
+    2. Let $\gamma(t)=a+tu$, then $(f\circ\gamma)^\prime(0)=D_uf(0)$.
+\end{remark}
+In the special case where $u=e_i$, we write $D_if(a)$ to denote $D_{e_i}f(a)$ and it is called the $i^{th}$ partial derivative of $f$ at $a$.
+\begin{proposition}
+    If $f$ is differentiable at $a$, then all $D_uf(a)$ exists and we have $D_uf(a)=f^\prime(a)(u)$, so for $h=\sum_ih_ie_i$, we have
+    $$f^\prime(a)(h)=\sum_ih_iD_if(a)$$
+\end{proposition}
+\begin{proof}
+    We have
+    $$f(a+h)=f(a)+f^\prime(a)(h)+\epsilon(h)\|h\|$$
+    Then
+    $$\frac{f(a+tu)-f(a)}{t}=f^\prime(a)(u)+\epsilon(tu)\frac{\|t\|}{t}\to f^\prime(a)(u)$$
+    As $t\to 0$.
+    The rest follows.
+\end{proof}
+\begin{remark}
+    1. Assume $f$ is differentiable at $a$, then the matrix of $f^\prime(a)$ is exactly represented by $(f^\prime(a))_{ji}=D_if_j(a)=(\partial f_j/\partial x_i)(a)$.
+    This is called the Jacobian of $f$ at $a$, denoted by $Jf(a)$.\\
+    2. If all partial derivatives exists, so does $D_uf_j(a),\forall j$, and we have $D_uf_j(a)=\pi_j(D_uf(a))$
+    So $D_u\pi_j=\pi_jD_u$.\\
+    3. The converse of the proposition fails in general.
+\end{remark}
+\begin{theorem}
+    If all partial derivatives of $f$ exists at $a\in U$.
+    Assume $\exists r>0,D_r(a)\in U$ and $D_if$ exists in $D_r(a)$ and is continuous at $a$ for all $i$, then $f$ is differentiable at $a$.
+\end{theorem}
+\begin{proof}
+    WLOG $n=1$ by Proposition \ref{component_diff} and the second remark above.
+    We shall prove the case for $m=2$, and the general case is similar.
+    Let $a=(a_1,a_2)$ and consider $h=(h_1,h_2)\in D_r(0)$.
+    Certainly we want the derivative to equal $h_1D_1f(a_1,a_2)+h_2D_2f(a_1,a_2)$, so we will try to prove
+    $$f(a_1+h_1,a_2+h_2)-f(a_1,a_2)-h_1D_1f(a_1,a_2)-h_2D_2f(a_1,a_2)=o(\|h\|)$$
+    Note that we can write it out in two parts
+    \begin{align*}
+        &f(a_1+h_1,a_2+h_2)-f(a_1+h_1,a_2)-h_2D_2f(a_1,a_2)\\
+        &+f(a_1+h_1,a_2)-f(a_1,a_2)-h_1D_1f(a_1,a_2)
+    \end{align*}
+    We have $f(a_1+h_1,a_2)-f(a_1,a_2)-h_1D_1f(a_1,a_2)=o(h_1)=o(\|h\|)$ as $h\to 0$.
+    As for the first part, let $\phi(t)=f(a_1+h_1,a_2+t)$ for $t\in [-|h_2|,|h_2|]$, so we have
+    $$f(a_1+h_1,a_2+h_2)-f(a_1+h_1,a_2)-h_2D_2f(a_1,a_2)=\phi(h_2)-\phi(0)-h_2D_2f(a_1,a_2)$$
+    Note that $\phi$ is continuous and is differentiable in $(-|h_2|,|h_2|)$.
+    Indeed we have $\phi^\prime(t)=D_2f(a_1+h_2,a_2+t)$.
+    By MVT, there is some $\theta(h_1,h_2)\in (0,1)$ such that $\phi(h_2)-\phi(0)=\phi^\prime(\theta h_2)h_2$.
+    Hence
+    \begin{align*}
+        \phi(h_2)-\phi(0)-h_2D_2f(a_1,a_2)&=h_2(D_2f(a_1+h_1,a_2+\theta h_2)-D_2f(a_1,a_2))\\
+        &=o(h_2)=o(\|h\|)
+    \end{align*}
+    as $h\to 0$.
+    So the theorem is proved.
+\end{proof}
+\begin{theorem}[Mean Value Inequality]\label{mean_val_ineq}
+    Consider an open $U\subset \mathbb R^m$ and a function $f:U\to\mathbb R^n$.
+    Assume $f$ is differentiable on $U$ and we are given $a,b\in U$ such that $[a,b]=\{(1-t)a+tb:t\in [0,1]\}\subset U$ and $\exists M>0$ such that $\forall z\in [a,b],\|f^\prime(z)\|\le M$, then
+    $$\|f(b)-f(a)\|\le M\|b-a\|$$
+\end{theorem}
+\begin{proof}
+    Let $v=f(b)-f(a)$.
+    Consider $\phi:[0,1]\to\mathbb R$ defined by $\phi(t)=\langle f((1-t)a+tb),v\rangle$.
+    Then $\phi(1)-\phi(0)=\|f(b)-f(a)\|^2$ and $\phi$ is differentiable with $\phi^\prime(t)=\langle f^\prime((1-t)a+tb)(b-a),v\rangle$.
+    By MVT, $\exists\theta\in (0,1)$ with $\phi(1)-\phi(0)=\phi^\prime(\theta)$, so we have
+    \begin{align*}
+        \|f(b)-f(a)\|^2&=\langle f^\prime((1-\theta)a+\theta b)(b-a),v\rangle\\
+        &\le \|f^\prime((1-\theta)a+\theta b)(b-a)\|\|v\|\\
+        &\le \|f^\prime((1-\theta)a+\theta b)\|\|b-a\|\|v\|\\
+        &\le M\|b-a\|\|f(b)-f(a)\|
+    \end{align*}
+    The theorem follows.
+\end{proof}
+\begin{corollary}
+    Let $U\subset\mathbb R^m$ be open and connected, and $f:U\to\mathbb R^n$ be differentiable such that $f^\prime\equiv 0$, then $f$ is constant.
+\end{corollary}
+\begin{proof}
+    We can show that it is locally constant by the preceding theorem, thus it is constant everywhere by connectedness.
+\end{proof}
+\begin{remark}
+    Suppose we have open $U\subset\mathbb R^m,V\subset\mathbb R^n$ and $f:U\to V$ is a bijection such that $f$ is differentiable at $a\in U$ and $f^{-1}$ at $f(a)\in V$.
+    Let $S=f^\prime(a), T=(f^{-1})^\prime(f(a))$, then $ST=I_n$ and $TS=I_m$.
+    $\operatorname{rank}(I_n)=\operatorname{rank}(ST)=\operatorname{rank}(TS)=\operatorname{rank}(I_m)$, hence $n=m$.
+\end{remark}
+\begin{theorem}[Inverse Function Theorem]
+    We have an open set $U\subset\mathbb R^n$, a $C^1$ (continuously differentiable) function $f:U\to\mathbb R^n$ and a point $a\in U$ such that $f^\prime(a)$ is invertible, then there exists open set $V\subset U,W\subset\mathbb R^n$ open such that $a\in V,f(a)\in W,f|_{V}:V\to W$ is a bijection with a $C^1$ inverse $g:W\to V$ and $\forall y\in W,g^\prime(y)=(f^\prime(g(y)))^{-1}$.
+\end{theorem}
+\begin{proof}
+    Step 1: WLOG $a=f(a)=0$ and $f^\prime(a)=I$.
+    We can do this because we can consider $h:U-a=\{x-a:x\in U\}\to\mathbb R^n$ by $h(x)=(f^\prime(a))^{-1}(f(x+a)-f(a))$.
+    Now we can fix $r>0$ such that $D_r(0)\subset U$ and $\forall x\in D_r(0),\|f^\prime(x)-I\|\le 1/2$ by continuity.\\
+    Step 2: $\forall x,y\in D_r(0)$, $\|f(x)-f(y)\|\ge \|x-y\|/2$, so $f$ is injective.
+    To prove this, consider $h(x)=x-f(x)$, then $h^\prime=I-f^\prime(x)$, so $\forall x\in D_r(0),\|h^\prime(x)\|\le 1/2$.
+    By Theorem \ref{mean_val_ineq}, $\|h(x)-h(y)\|\le \|x-y\|/2$, so
+    $$\frac{\|x-y\|}{2}\ge \|h(x)-h(y)\|\ge \|x-y\|-\|f(x)-f(y)\|$$
+    Step 3: For $0\le s\le r/2$, $D_s(0)\subset f(B_{2s}(0))\subset f(D_r(0))$.
+    Fix $y\in D_s(0)$, then consider $h:B_{2s}(0)\to\mathbb R^n$ by $x\mapsto y-f(x)+x$.
+    We have $h^\prime(x)=-f^\prime(x)+I$, so $\forall x\in B_{2s}(0),\|h^\prime(x)\|\le 1/2$, so by Theorem \ref{mean_val_ineq}, $h$ is $1/2$-Lipschitz.
+    Note also that for $x\in B_{2r}(0)$, then $\|h(x)\|=\|h(x)-h(0)+y\|\le \|x\|/2+\|y\|\le 2s$, so by Theorem \ref{banach} there is some $x\in B_{2r}(0)$ such that $h(x)=x$, which means that $y=f(x)$.\\
+    Step 4: Fix $0<s<r/2$, then let $W=D_s(0)$ and $V=f^{-1}(D_s(0))\cap D_r(0)$, so $V$ is open and $f(V)=W$ by step 3 and $f$ is injective by step 2, so $f|_V:V\to W$ is a bijection.
+    Let $f^{-1}=g:W\to V$ be the inverse, then given $a,b\in W$, let $x=g(a),y=g(b)$, then $x,y\in V\subset D_r(0)$, so by step 2, $\|f(x)-f(y)\|\ge 1/2\|x-y\|$, so $g$ is $1/2$-Lipschitz hence continuous.
+    Note that if $g$ is differentiable then we have $I=(f\circ g)^\prime(y)$ for any $y$, hence by Chain Rule, $g^\prime(y)=(f^\prime(g(y)))^{-1}$.
+    So we want to show that $g$ has this as derivative.
+    Indeed, fix $b\in W$ and $a=g(b),T=f^\prime(a)$, we have $f(a+h)=f(a)+T(h)+\epsilon(h)\|h\|$.
+    Fix $\delta>0$ such that $D_\delta(b)\in W$ and $k\in D_\delta(0)$, by setting $h=h(k)=g(b+k)-g(b)$ we have $k=f(a+h)-f(a)=T(h)+\epsilon(h)\|h\|$, so $h=T^{-1}(k)-T^{-1}(\epsilon(h))\|h\|$, hence
+    $$g(b+k)=g(b)+h=g(b)+T^{-1}(k)-T^{-1}(\epsilon(h))\|h\|=g(b)+T^{-1}(k)+o(\|k\|)$$
+    Hence $g$ is differentiable at $b$ with derivative $T^{-1}=(f^\prime(g(b)))^{-1}$ which is continuous.
+\end{proof}
+\begin{definition}
+    We have open set $U\subset\mathbb R^m$, then a function $f:U\to\mathbb R^n,a\in U$ have $f$ twice differentiable at $a$ if there is some open $V$ with $a\in V\subset U$ such that $f$ is differentiable in $V$ and the derivative $f^\prime:V\to L(\mathbb R^m,\mathbb R^n)$ is differentiable.
+    $f^{\prime\prime}(a)=(f^\prime)^\prime(a)$ is called the second derivative of $f$.
+\end{definition}
+So we have $f^{\prime\prime}\in L(\mathbb R^m,L(\mathbb R^m,\mathbb R^n))$ where we have
+$$f^\prime(a+h)=f^\prime(a)+f^{\prime\prime}(a)(h)+\epsilon(h)\|h\|$$
+where $\epsilon\to 0$ as $h\to 0$.
+Note that $\epsilon(h)\in L(\mathbb R^m,\mathbb R^n)$.
+So $f^\prime(a+h)(k)=f^\prime(a)(k)+f^{\prime\prime}(a)(h)(k)+\epsilon(h)(k)\|h\|$
+for each fixed $k\in\mathbb R^m$.
+Note also that $L(\mathbb R^m,L(\mathbb R^m,\mathbb R^n))\cong \operatorname{Bil}(\mathbb R^m\times\mathbb R^m,\mathbb R^n)$ by the correspondence $T\mapsto B$ with $B(h,k)=T(h)(k)$.
+So we can think of the second derivative at $a$ as a bilinear map $\mathbb R^m\times\mathbb R^m\to\mathbb R^n$.\\
+In summary, $f$ is twice differentiable at $a$ if and only if there is a bilinear map $B:\mathbb R^m\times\mathbb R^m\to\mathbb R^n$ such that for any $k\in\mathbb R^m$ we have
+$$f^\prime(a+h)(k)=f^\prime(a)(h)+B(h,k)+o(\|h\|)$$
+$B$ here is then the second derivative.
+\begin{example}
+    For $f:M_n\to M_n$ by $A\mapsto A^3$.
+    It is differentiable and $f^\prime(A)(H)=HA^2+AHA+A^2H$.
+    Then to find second derivative by
+    \begin{align*}
+        f^\prime(A+H)(K)&=K(A+H)^2+(A+H)K(A+H)+(A+H)^2K\\
+        &=f^\prime(A)(K)\\
+        &+KAH+KHA+AKH+HKA+AHK+HAK\\
+        &+o(\|H\|^2)
+    \end{align*}
+    So the seond derivative is the bilinear map $f^{\prime\prime}(A)=B(H,K)=KAH+KHA+AKH+HKA+AHK+HAK$.
+\end{example}
+Assume that $f$ has second derivative at $a$ under the usual setup, then
+$$f^\prime(a+h)(k)=f^\prime(a)(k)+f^{\prime\prime}(a)(h,k)+o(\|h\|)$$
+So fix $u,v\in\mathbb R^m\setminus\{0\}$, by putting $k=v$ we have
+$$D_vf(x+h)=D_vf(a)+f^{\prime\prime}(h,v)+o(\|h\|)$$
+So $D_vf$ is differentiable, therefore we can write
+$$D_uD_vf(a)=f^{\prime\prime}(a)(u,v)$$
+\begin{theorem}
+    Let $U\subset\mathbb R^m$ be open and $f:U\to\mathbb R^n$ be second differentiable on $U$ with $f^{\prime\prime}$ continuous at $a$ for some $a\in U$, then $f^{\prime\prime}(a)$ is a symmetric form, that is, for any $0\neq u,v\in\mathbb R^m$, $D_uD_vf(a)=D_vD_uf(a)$.
+\end{theorem}
+\begin{proof}
+    WLOG $n=1$ since $(f_j)^{\prime\prime}=f^{\prime\prime}_j$.
+    Define
+    \begin{align*}
+        \phi(s,t)&=f(a+su+tv)-f(a+su)-(f(a+tv)-f(a))\\
+        &=f(a+su+tv)-f(a+tv)-(f(a+su)-f(a))
+    \end{align*}
+    Fix $s,t$, consider $\Psi(x)=f(a+xu+tv)-f(a+xu)$, so $\phi(s,t)=\Psi(s)-\Psi(0)=s\Psi^\prime(\alpha s)$ where $\alpha=\alpha(s,t)\in (0,1)$.
+    So $\phi(s,t)=(D_uf(a+\alpha su+tv)-D_uf(a+\alpha su))s$
+    Consider $\psi(y)=D_uf(a+\alpha su+yv)$, so $\phi(s,t)=s(\psi(t)-\psi(0))=st\psi^\prime(\beta t),\beta=\beta(s,t)\in (0,1)$.
+    So
+    \begin{align*}
+        \frac{\phi(s,t)}{st}&=D_vD_uf(a+\alpha su+\beta tv)\\
+        &=f^{\prime\prime}(a+\alpha su+\beta tv)(v,u)\to f^{\prime\prime}(a)(v,u)
+    \end{align*}
+    Repeat the process in the other order to get
+    $$\frac{\phi(s,t)}{st}\to f^{\prime\prime}(a)(u,v)$$
+    So they are equal.
+\end{proof}
+$U\subset\mathbb R^m$ open, $f:U\to\mathbb\mathbb R$, we say $f$ has a local maximum at $a\in U$ if $\exists r>0,\forall b\in D_r(a),f(b)\le f(a)$.
+Similarly we can define local minimums.
+\begin{definition}
+    We say $f$ has a stationary point at $a$ if $f^\prime(a)=0$.
+\end{definition}
+It is immediate that $f$ has stationary points in local maxima/minima.
+\begin{theorem}
+    Let $U\subset\mathbb R^m$ be open and $f:U\to\mathbb R$ be twice differentiable in $U$ and $f^{\prime\prime}$ is continuous at $a$ and $f^\prime(a)=0$.
+    Then if the symmetric form $f^{\prime\prime}$ is positive definite at $a$ then $f$ has a local minimum, and if it is negative definite then it has a local maximum.
+\end{theorem}
+\begin{proof}
+    It is a non-examinable fact that
+    $$f(a+h)=f(a)+f^\prime(a)(h)+1/2f^{\prime\prime}(a)(h,h)+\epsilon(h)o(\|h\|^2)$$
+    Recall that $f^{\prime\prime}(a)$ is (real) diagonalizable.
+    So there is a base $\{u_k\}$ such that
+    $$f^{\prime\prime}(u_i,u_j)=\begin{cases}
+        0\text{, if $i\neq j$}\\
+        \lambda_i\text{, if $i=j$}
+    \end{cases}$$
+    Assume that $f^{\prime\prime}$ is positive definite, it means that $f^{\prime\prime}(a)(h,k)>0$ for any $(h,k)\neq (0,0)$.\\
+    So $\lambda_i=f^{\prime\prime}(a)(u_i,u_i)>0$, hence $\mu=\min\{\lambda_i:1\le i\le m\}>0$.
+    For $h\in\mathbb R^m$, we have
+    $$f^{\prime\prime}(a)(h,h)=\sum_{i,j}h_ih_jf^{\prime\prime}(a)(u_i,u_j)=\sum_ih_i^2\lambda_i\ge\mu\|h\|^2$$
+    Hence $f(a+h)-f(a)\ge \mu\|h\|^2/4\ge 0$, therefore $f$ has a local minimum at $a$.
+    Similar for negative definite case.
+\end{proof}

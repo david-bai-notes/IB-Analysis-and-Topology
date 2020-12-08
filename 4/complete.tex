@@ -1,0 +1,165 @@
+\section{Completeness}
+\begin{definition}
+    A metric space is called complete if every Cauchy sequence converges.
+\end{definition}
+\begin{definition}
+    A subset $A\subset M$ where $M$ is a metric space is called bounded if there is some $r>0$ and $z\in M$ such that $A\subset B_r(z)$.
+\end{definition}
+\begin{lemma}\label{ccb}
+    Convergent $\implies$ Cauchy $\implies$ Bounded.
+\end{lemma}
+\begin{proof}
+    Suppose $x_n\to x$, then $\forall\epsilon>0$, we can find some $N\in\mathbb N$ such that $\forall n>N,d(x,x_n)<\epsilon/2$, then $\forall n,m>N$,
+    $$d(x_m,x_n)\le d(x_m,x)+d(x_n,x)<2\epsilon/2=\epsilon$$
+    Assume that $(x_n)$ is Cauchy, we need that $\{x_n:n\in\mathbb N\}$ is contained in some ball.
+    We know that there is some $N\in\mathbb N,\forall n,m>N, d(x_n,x_m)<\epsilon$.
+    We can take $\epsilon=1$, so $\{x_n:n\in\mathbb N, n>N\}\subset B_1(x_N)$.
+    Since $(x_n)_{n<N}$ is finite, it is contained in some ball $B$.
+    In particular, we can take the ball $B_{\max\{1,d(x_N,x_i):i\le N\}}(x_N)$ contains the sequence.
+\end{proof}
+\begin{remark}
+    Bounded does not imply Cauchy and Cauchy does not imply Convergent.
+\end{remark}
+\begin{definition}
+    A metric space $M$ is complete if every Cauchy sequence converges.
+\end{definition}
+\begin{proposition}
+    If $M,M'$ are complete, so is $M\oplus_pM'$.
+\end{proposition}
+\begin{proof}
+    Let $(a_n)$ be Cauchy in the product, then say that $a_i=(x_i,x_i')$, then for all $m,n\in\mathbb N$, $\max\{d(x_m,x_n),d(x_m',x_n')\}\le d_p(a_m,a_n)$, so $(x_n),(x_n')$ are both Cauchy.
+    Since both $M,M'$ are complete, $\exists x\in M,x'\in M', x_n\to x, x_n'\to x'$.
+    Hence $a_n\to (x,x')$.
+\end{proof}
+\begin{example}
+    $\mathbb R^n,\mathbb C^n$ are complete (in Euclidean metric) for any $n$.
+\end{example}
+There is another very important example:
+\begin{theorem}
+    Let $S$ be a non-empty set, then $\ell_\infty S$ is complete under the uniform metric.
+\end{theorem}
+\begin{proof}
+    Theorem \ref{GP_UnifConv} shows that a uniformly Cauchy sequence of functions does converge to some scalar function on $S$.
+    To see it is bounded, choose $n\in\mathbb N$ such that $d(f_n,f)<1$, then since there is some $C\ge 0$ such that $\sup|f_n|\le C$, we have $|f|\le |f-f_n|+|f_n|<C+1$ so it is bounded as well.
+\end{proof}
+\begin{proposition}
+    Let $N\subset M$ be a metric subspace.\\
+    1. If $N$ is complete, then $N$ is closed in $M$.\\
+    2. If $N$ is closed and $M$ is complete, so is $N$.
+\end{proposition}
+So a metric subspace of a complete space is complete if and only if it is closed.
+\begin{proof}
+    1. If $N$ is complete, let $(x_n)$ be a sequence in $N$ such that $x_n\to x$ in $M$, but this means that $(x_n)$ is Cauchy by Lemma \ref{ccb}, therefore it is convergent in $N$ due to completeness, hence $x\in N$ due to uniqueness of limit in metric space.\\
+    2. Choose any Cauchy sequence $(x_n)$ in $N$, we know that $(x_n)\to x$ for some $x\in M$ due to completeness of $M$, but since $N$ is closed, $x\in N$ as well, so $N$ is complete.
+\end{proof}
+\begin{theorem}
+    Let $M$ be a metric space, then the space of bounded continuous scalar functions in $M$, $C_b(M)$ is complete in the uniform metric.
+\end{theorem}
+\begin{proof}
+    $C_b(M)$ is a metric subspace of $\ell_\infty(M)$ which is complete.
+    But uniform limit of continuous functions to a continuous function, so $C_b(M)$ is closed.\\
+    To spell out the proof, fix $x\in M, \epsilon>0$, we can choose $N$ such that $D(f_n,f)<\epsilon/3$ where $D$ is the uniform metric.
+    Fix any $n\ge N$, then since $f_n$ is continuous, $\exists \delta>0,d(x,y)<\epsilon\implies |f_n(x)-f_n(y)|<\epsilon/3$.
+    Hence $d(x,y)<\delta\implies |f(x)-f(y)|\le |f(x)-f_n(x)|+|f(y)-f_n(y)|+|f_n(x)-f_n(y)|<3\epsilon/3=\epsilon$.
+\end{proof}
+Fix some $S\neq\varnothing$, a metric space $(N,d')$.
+Let $\ell_\infty (S,N)$ be the space of bounded functions $S\to N$.
+Then we can define the uniform metric on $\ell_\infty(S,N)$ defined by $D(f,g)=\sup_{x\in S}d'(f(x),g(x))$.\\
+Now given a metric space $(M,d)$, let $C_b(M,N)$ be the set fo bounded continuous functions $M\to N$, then we have
+\begin{theorem}
+    Let $S,M,N$ be as above, assuming that $N$ is complete, then $\ell_\infty(S,N)$ is complete under uniform metric, and since $C_b(M,N)$ is closed in $\ell_\infty(M,N)$ hence complete.
+\end{theorem}
+\begin{proof}
+    Analogous to the case where $M=\mathbb R$ or $\mathbb C$.
+\end{proof}
+\begin{example}
+    1. For any closed and bounded interval $[a,b]\in\mathbb R$, then continuous functions on $[a,b]$ are the continuous and bounded functions on $[a,b]$ is complete under the uniform metric.
+\end{example}
+\begin{definition}
+    A map $f:M\to M'$ is a contraction mapping if $f$ is $L$-Lipschitz with $L<1$.
+\end{definition}
+\begin{theorem}[Contraction Mapping Theorem, aka Banach Fixed Point Theorem]\label{banach}
+    If $f$ is a contraction mapping in a nonempty complete metric space, then $f$ has an unique fixed point.
+\end{theorem}
+Note that it is important for the condition listed to be satisfied.
+\begin{example}
+    1. If we remove the completeness criterion, $f:\mathbb R\setminus\{0\}\to\mathbb R\setminus\{0\}$ defined by $f(x)=x/2$, then $f$ is a contraction but do not have fixed point.\\
+    2. If we remove $L<1$, $f:\mathbb R\to\mathbb R$ by $f(x)=x+1$ is $1$-Lipschitz but do not have any fixed point.\\
+    3. $f(x)=x+1/x,[1,\infty)$
+\end{example}
+\begin{proof}
+    Fix $x_0\in M$, then define a sequence $x_n$ by $x_{n+1}=f(x_n)$, so $x_n=f^n(x_0)$.
+    We shall show that this sequence is Cauchy.
+    For $n\ge 2$, $d(x_n,x_{n-1})\le Ld(x_{n-1},x_{n-2})\le L^{n-1}d(x_1,x_0)$ inductively.
+    For $m>n$, 
+    \begin{align*}
+        d(x_m,x_n)&\le d(x_n,x_{n+1})+\cdots+d(x_{m-1},x_m)\\
+        &\le(L^{m-1}+L^{m-2}+\cdots+L^n)d(x_1,x_0)\\
+        &\le\frac{L^n}{1-L}d(x_1,x_0)
+    \end{align*}
+    The last term, which only depends on the smaller term $n$, can be as small as we want when $n$ is large enough, so the sequence is Cauchy.\\
+    Hence there is a limit $x$ of the sequence $x_n$ since $M$, but since $f$ is continuous, $f(x_n)\to f(x)$, but $f(x_n)=x_{n+1}$, so by uniqueness of limits, $f(x)=x$.\\
+    Suppose $f(x)=x$ and $f(y)=y$, then if $x\neq y$, $|x-y|=|f(x)-f(y)|\le L|x-y|<|x-y|$ which is a contradiction.
+\end{proof}
+Note that $x_n\to x$ exponentially fast, so it can also be applied to numerical analysis to find an approximated solution of the fixed point.\\
+An application of the contraction mapping theorem is to analyze the existence and uniqueness of the solution of an initial value problem.
+\begin{example}
+    The IVP $f^\prime(t)=f(t^2), f(0)=y_0$ on $C[0,1/2]$ is what we are interested in.
+    Assume that $f$ has a solution, then immediately $f$ is continuously differentiable.
+    By FTC,
+    $$f(t)=f(0)+\int_0^tf(x^2)\,\mathrm dx$$
+    Let $M=C[0,1/2]$, which is nonempty and complete, then consider the mapping $T:M\to M$ defined by
+    $(Tg)(t)=y_0+\int_0^tg(x^2)\,\mathrm dx$
+    $T$ is trivially well-defined since $x\in [0,1/2]\implies x^2\in[0,1/4]\subset[0,1/2]$ and that $g(x^2)$ is continuous in $x$. Also by FTC, $(Tg)^\prime=g$, so $Tg$ is continuously differentiable hence continuous.
+    Now $f$ solves the IVP iff $f$ is a fixed point of $T$.
+    Also we can check that $T$ is a contraction.
+    Indeed, take $g,h\in\mathbb M$, then
+    \begin{align*}
+        |Tg(t)-Th(t)|&=\left|\int_0^tg(x^2)-h(x^2)\,\mathrm dx\right|\\
+        &\le\int_0^t|g(x^2)-h(x^2)|\,\mathrm dx\le tD(g,h)\le D(g,h)/2
+    \end{align*}
+    So it is a contraction mapping, hence by Theorem \ref{banach} a unique fixed point exists.
+\end{example}
+\begin{theorem}[Lindelof-Picard Theorem]
+    Let $a<b, R>0$ be real numbers and $y-0=\mathbb R^n$.
+    Suppose there is a continuous $\phi:[a,b]\times B_R(y_0)\to \mathbb R^n$.
+    Assume $K>0$ such that $\forall x,y\in B_R(y_0),\forall t\in [a,b],\|\phi(t,x)-\phi(t,y)\|\le K\|x-y\|$, then $\exists\epsilon>0,\forall t_0\in [a,b]$, the IVP
+    $$f^\prime(t)=\phi(t,f(t)),f(t_0)=y_0$$
+    has a unique solution on $[t_0-\epsilon,t_0+\epsilon]\cap [a,b]$.
+\end{theorem}
+\begin{proof}
+    Observe that $\mathbb R^n$ is complete, so $B_R(y_0)$ is closed hence complete, then since $\phi$ is continuous, it is bounded in the closed bounded set $[a,b]\times B_R(y_0)\subset\mathbb R^{n+1}$.
+    Let
+    $$C=\sup\{|\phi(t,x)|:t\in [a,b],x\in B_R(y_0)\},\epsilon=\min\{R/C,1/(2K)\}$$
+    We want to solve the IVP on $[c,d]=[t_0-\epsilon,t_0+\epsilon]\cap[a,b]$.
+    Now the set of functions
+    $$M=C([c,d],B_R(y_0))$$
+    is nonempty and complete.\\
+    Consider the mapping $T:M\to M$ by
+    $$(Tg)(t)=y_0+\int_0^t\phi(x, g(x))\,\mathrm dx$$
+    Now $Tg$ is continuous for continuous $g$ by FTC (in fact $Tg$ is even continuously differentiable).
+    Also $(Tg)^\prime(t)=\phi(t,g(t))$.
+    In addition, $Tg$ takes values in $B_R(y_0)$ since
+    $$\|(Tg)(t)-y_0\|=\left\|\int_{t_0}^t\phi(x, g(x))\,\mathrm dx\right\|\le\int_{t_0}^t\|\phi(x, g(x))\|\,\mathrm dx\le \epsilon C\le R$$
+    It remains to show that it is a contraction mapping, then the theorem can be deduced from the contraction mapping theorem since the fixed point would be continuously differentiable and solves the differential equation.
+    Also every solution is a fixed point.\\
+    For $g,h\in\mathbb M$, then we consider the uniform distance of $Tg,Th$.
+    Indeed,
+    \begin{align*}
+        \|Tg(t)-Th(t)\|&=\left\|\int_{t_0}^t\phi(s,g(s))-\phi(s,h(s))\,\mathrm ds\right\|\\
+        &\le\int_{t_0}^t\|\phi(s,g(s))-\phi(s,h(s))\|\,\mathrm ds\\
+        &\le\epsilon KD(g,h)\le D(g,h)/2
+    \end{align*}
+    for any $t\in\mathbb R$ by the Lipschitz condition we assumed.
+    Therefore $T$ is a contraction mapping, and the proof is complete.
+\end{proof}
+\begin{remark}
+    1. In general, however, you cannot extend the solution guaranteed above to a global solution.
+    But in our previous example we can extend the solution to $[0,1)$.\\
+    2. Also, we can apply the theorem to solve higher order equations by considering the vector of derivatives.\\
+    3. If $f:[a,b]\to\mathbb R^n$ can be written as $(f_1,f_2,\ldots,f_n)$, so $f^\prime=(f_1^\prime,f_2^\prime,\ldots f_n^\prime)$ assuming each component is differentiable.
+    Similarly, the integral of a vector valued function is the vector of the integrals of the components, given that they exist.
+    So we can do everything by components.\\
+    4. The reason that the integral of the norm is at least the norm of the integral is Cauchy-Schwarz.\\
+    5. We can show that a continuous function on a closed bounded set in $\mathbb R^n$ is bounded by Bolzano-Weierstrass.
+\end{remark}

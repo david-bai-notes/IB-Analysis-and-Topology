@@ -1,0 +1,155 @@
+\section{Compactness}
+Recall that a continuous, real-valued function on a closed bounded interval is bounded and attains its bound.
+The question is, for which topological space $X$ is it true that every continuous real functions is bounded.
+\begin{example}
+    1. For finite $X$, every function $X\to\mathbb R$ is bounded.\\
+    2. If for all continuous $f:X\to\mathbb R,\exists n\in\mathbb N,\exists A_1,A_2,\ldots,A_n\subset X$ such that $X=\bigcup_iA_i$ and $f$ is bounded on each $A_i$, then $f$ is bounded on $X$.
+\end{example}
+Note that given continuous $f:X\to\mathbb R$, for $x\in X$, $U_x=f^{-1}((f(x)-1,f(x)+1))$ is open and $f$ is bounded there.
+So if there is some finite subset of $\{U_x:x\in X\}$ that still covers $X$, then $f$ must be bounded.
+\begin{definition}
+    An open cover of a topological space $X$ is a family of open sets $\mathscr U=\{U_i\}_{i\in I}$ in $X$ such that $X=\bigcup_{i\in I}U_i$.\\
+    A subcover of $\mathscr U$ is a subset $\mathscr V\subset \mathscr U$ that is also an open cover of $X$.
+    $\mathscr V$ is called a finite subcover if it is finite.\\
+    $X$ is compact if every open cover of $X$ has a finite subcover.
+\end{definition}
+\begin{theorem}
+    If $X\neq\varnothing$ is compact and $f:X\to\mathbb R$ is continuous, then $f$ is bounded and attains its bound.
+\end{theorem}
+\begin{proof}
+    By continuity of $f$ and compactness of $X$, there is a finite subset of $\{f^{-1}((f(x)-1,f(x)+1)):x\in X\}$ that covers $X$, which means that $f$ is bounded on any set in a finite family, so $f$ is bounded in the union of that family, which is $X$.
+    To show that $f$ attains its bound, let $m=\{f(x):x\in X\}$ which exists since $X\neq\varnothing$ and $f$ is bounded.
+    Suppose that there is not an $x$ with $f(x)=m$, so for any $x\in X,f(x)>m$ so $\exists m_x$ such that $f(x)>m_x>m$.
+    Let $U_x=f^{-1}((m_x,\infty))$ which is open and contains $x$, and $\inf_{U_x}f\ge m_x>x$.
+    Note that the family of all $U_x$ is an open cover of $X$, so there is a finite subcover $\{U_x\}_{x\in F}$, so $\forall y\in X,f(y)\ge \min_{x\in F}m_x>m$, contradiction.
+\end{proof}
+Note that for a subspace $Y\subset X$, $Y$ is compact iff whenever $\mathscr U$ is a family of open set in $X$ whose union contains $Y$, there is a finite subset $\mathscr V\subset \mathscr U$ such that the union of elements in $\mathscr V$ contains $Y$.
+\begin{theorem}\label{01compact}
+    $[0,1]$ is compact.
+\end{theorem}
+\begin{proof}
+    Let $\mathscr U$ be a set of open sets in $\mathbb R$ thar contains $[0,1]$, assume that there does not exist finite subcover that contains $[0,1]$, then if $0\le a<b\le 1$ and $[a,b]$ cannot be covered by any finite $\mathscr V\subset\mathscr U$, then let $C=(a+b)/2$, then one of $[a,c],[c,b]$ cannot be covered by finite $\mathscr V\subset\mathscr U$.\\
+    Therefore, inductively we can find intervals $I_n=[a_n,b_n]$ such that $$I_0=[0,1],I_{n+1}\subset I_n,|b_n-a_n|=1/2^n$$
+    thus $a_n\to x,b_n=a_n+(b_n-a_n)\to x$ for some $x\in [0,1]$.
+    Now there is $U\subset \mathscr U$ such that $x\in U$, but then there is some $\epsilon$ with $(x-\epsilon,x+\epsilon)\subset U$, therefore for sufficiently large $n$, $I_n\subset U$, which is a contradiction.
+\end{proof}
+\begin{proposition}\label{compact_haus_closed}
+    Let $X$ be a topological space and $Y\subset X$ a subspace, then\\
+    1. If $X$ is compact and $Y$ is closed in $X$, then $Y$ is compact.\\
+    2. If $X$ is Hausdorff and $Y$ is compact, then $Y$ is closed.
+\end{proposition}
+\begin{proof}
+    1. Let $\mathscr U$ covers $Y$, then $\mathscr U\cup \{X\setminus Y\}$ is an open cover of $X$.
+    Since $X$ is compact, there is a finite subcover $\mathscr V\subset \mathscr U\cup \{X\setminus Y\}$ that covers $X$, hence $\mathscr V\setminus\{X\setminus Y\}\subset \mathscr U$ is finite and covers $Y$.\\
+    2. We want to show that its complement is open.
+    Indeed, for any $x\in X\setminus Y$, and for any $y\in Y$, there are disjoint $U_y,V_y$ such that $x\in U_y,y\in V_y$, then $\{V_y\}_{y\in Y}$ is an open cover of $Y$, thus there is some finite set $F\subset Y$ such that $Y\subset\bigcup_{y\in F}V_y$, so $U=\cap_{y\in F}U_y$ is open, and by definition it is disjoint from $Y$, hence $x\in U\subset X\setminus Y$, which shows that $X\setminus Y$ is open.
+\end{proof}
+\begin{proposition}
+    If $X$ is compact and $f:X\to Y$ is continuous, then $f(X)$ is compact.
+\end{proposition}
+\begin{proof}
+    For any open $\{U_i\}_{i\in I}$ that covers $f(X)$, $\{f^{-1}(U_i)\}_{i\in I}$ is an open cover of $X$, therefore there is some finite $F\subset I$ such that $\{f^{-1}(U_i)\}_{i\in F}$ covers $X$, hence $\{U_i\}_{i\in F}$ covers $f(X)$.
+\end{proof}
+\begin{remark}
+    1. Compactness is a topological property.\\
+    2. Let $f:X\to Y$ and $A\subset X$.
+    Suppose $A$ is compact, then $f(A)$ is compact.
+\end{remark}
+\begin{example}
+    For $a<b$, $[a,b]=f([0,1])$ where $f(x)=(b-a)x+a$ which is continuous, thus every closed bounded interval is compact.
+\end{example}
+\begin{corollary}
+    If $X$ is compact and $R$ is an equivalence relation on $X$, then $X/R$ is compact.
+\end{corollary}
+\begin{proof}
+    The quotient map is continuous and surjective.
+\end{proof}
+\begin{theorem}[Topological Inverse Function Theorem]
+    If $f:X\to Y$ is a continuous bijection and $X$ is compact and $Y$ is Hausdorff, then $f$ is a homeomorphism.
+\end{theorem}
+\begin{proof}
+    It suffices to check that $f$ is an open map, which, since $f$ is a bijection, is equivalent to say that $f$ is a closed map.\\
+    Fix any closed $V\subset X$, then $V$ is compact since $X$ is compact, thus $f(V)$ is compact since $f$ is continuous, therefore $f(V)$ is closed since $Y$ is hausfdorff.
+    The result follows.
+\end{proof}
+\begin{example}
+    Consider $f:\mathbb R\to S^1$ by $f(t)=e^{2\pi it}$ induces a continuous bijection $\tilde{f}:\mathbb R/\mathbb Z\to S^1$.
+    Now $\mathbb R/\mathbb Z=q([0,1])$ (where $q$ is the quotient map) is compact and $S^1$ is Hausdorff since it is a metric space, therefore $\tilde{f}$ is a homeomorphism.
+\end{example}
+\begin{theorem}[Tychonorff's Theorem on Finite Products
+    \footnote{It works for arbitrary products, but that case is much much harder}
+    ]\label{tycho_finite}
+    Finite products of compact spaces are compact.
+\end{theorem}
+\begin{proof}
+    It suffices to show for $2$.\\
+    Assume $X,Y$ are compact.
+    Fix $x\in X$, $\exists W_y\in\mathscr U$ with $x,y\in W_y$, so there is some $U_y$ open in $X$ and $V_y$ open in $Y$ such that $(x,y)\in U_y\times V_y\subset W_y$, so there is a finite $F_Y\subset Y$ with $\bigcup_{y\in F_Y}V_y=Y$.
+    Let $T_x=\bigcup_{y\in F_Y}U_y$ is open and contains $x$ and note that $T_x\times Y\subset \bigcup_{y\in F_Y}W_y$.
+    But then $\{T_x\}_{x\in X}$ covers $X$, so there is a finite $F_X\subset X$ such that $\{T_x\}_{x\in F_X}$ covers $X$, hence
+    $$X\times Y\subset \bigcup_{x\in F_X}T_x\times Y=\bigcup_{x\in F_X}\bigcup_{y\in F_Y}W_y$$
+    The last term is the required finite subcover. 
+\end{proof}
+\begin{theorem}[Heine-Borel Theorem]
+    A subset $K\subset\mathbb R^n$ if and only if it is closed and bounded.
+\end{theorem}
+\begin{proof}
+    If $K$ is compact, note that $f:\mathbb R^n\to\mathbb R$ by $x\mapsto \|x\|$, thus it is bounded.
+    $K$ is also closed by Proposition \ref{compact_haus_closed}.\\
+    Conversely, if $K$ is closed and bounded, there is some $M>0$ such that $K\subset [-M,M]^n$ which is compact by Theorem \ref{01compact} and \ref{tycho_finite}.
+    Since $K$ is closed in $[-M,M]^n$, it is compact by Proposition \ref{compact_haus_closed}.
+\end{proof}
+\begin{definition}
+    Given an open set $U\subset\mathbb R^n$, a sequence of functions $f_k:U\to\mathbb R$ converges locally uniformly on $U$ to some function $f:U\to\mathbb R$ if $\forall x\in U, \exists r>0, D_r(x)\subset U$ and $f_k\to f$ uniformly on $D_r(x)$.
+\end{definition}
+Thus this happens if and only if $f_n\to f$ uniformly on any compact subset of $U$.
+\begin{definition}
+    A topological space $X$ is called sequentially compact if and only if every sequence in $X$ has a convergent subsequence.
+\end{definition}
+\begin{example}
+    Any closed bounded subset of $\mathbb R^n$ is sequentially compact by Bolzano-Weierstrass.
+\end{example}
+\begin{definition}
+    Fix a metric space $(M,d)$.
+    For $\epsilon>0$ and $F\subset M$.
+    We say $F$ is an $\epsilon$-net for $M$ if $\forall x\in M,\exists y\in F,d(x,y)\le \epsilon$.
+    That is,
+    $$M=\bigcup_{y\in F} B_\epsilon(y)$$
+    We say $M$ is totally bounded if for any $\epsilon>0$, there is a finite $\epsilon$-net for $M$.
+\end{definition}
+Note that any compact space is totally bounded, but the converse is not true by taking $[0,1)$, but the only thing missing here is completeness.
+\begin{theorem}
+    The followings are equivalent:\\
+    (1) $M$ is compact.\\
+    (2) $M$ is sequentially compact.\\
+    (3) $M$ is totally bounded and complete.
+\end{theorem}
+\begin{proof}
+    $1\implies 2$: Let $(x_n)$ be a sequence in $M$, so for $n\in\mathbb N$, let $A_n=\{x_k:k>n\}$.
+    We shall show that $\bigcap_{n\in\mathbb N}\bar{A}$ is nonempty.
+    Assume not, then
+    $$\bigcup_{n\in\mathbb N}M\setminus\bar{A}=M$$
+    But $M$ is compact and all $M\setminus\bar{A}$ are closed, there is finite subcover, hence there is some $N\in\mathbb N$ such that $\bigcup_{n\le N}M\setminus\bar{A}=M$.
+    Also $A_m\supset A_n,\forall m\le n$, so we have the complement of the closure of $A_{N}$ would be $M$, so that closure is empty, contradiction.\\
+    So we can fix $x\in \bigcap_{n\in\mathbb N}\bar{A}$.
+    It is then trivial to construct a subsequence of $x_n$ that converges to $x$.\\
+    $2\implies 3$: $M$ is complete since a Cauchy sequence with convergent subsequence is convergent.
+    To see it is totally bounded, assume it is not, then there is some $\epsilon>0$ such that every $\epsilon$-net is infinite.
+    Pick $x_1\in M$, then if we have already picked $x_1,\ldots,x_n$, we can pick $x_{n+1}\notin \bigcup_{k=1}^nB_\epsilon(x_k)$, which we can do since $M$ has no finite $\epsilon$-net.
+    But this $(x_n)$ does not have any Cauchy subsequence, so it has no converging subsequence.\\
+    $3\implies 1$: Assume $M$ is not compact, so there is an open cover $\mathscr U$ without any finite subcover.
+    We say $A\subset M$ is ``bad'' if there is no finite subcover of $A$ in $\mathscr U$.
+    So $M$ is bad but $\varnothing$ is not.
+    Note if $A=\bigcup_{i=1}^nB_i$ is bad, then there is some $i$ such that $B_i$ is bad.\\
+    Next, we want to show that if $A$ is bad and $\epsilon>0$, then $\exists B\subset A$ such that $B$ is bad and $\operatorname{diam}B=\sup_{x,y\in B}d(x,y)<\epsilon$.
+    Indeed, since $M$ is bounded, we have a finite $\epsilon/2$-net $F$, that is,
+    $$\bigcup_{x\in F}B_{\epsilon/2}(x)=M\implies \bigcup_{x\in F}(B_{\epsilon/2}(x)\cap A)=A$$
+    But this would mean that there is some $x\in F$ such that $B_{\epsilon/2}(x)\cap A$ is bad, and by triangle inequality its diameter is less than $\epsilon$.
+    Using this we can construct a sequence $M\supset A_1\supset A_2\supset\cdots$ such that $A_n$ is bad for any $n$ and $\operatorname{diam}A<1/n$.
+    So we can pick $x_n\in A_n$, then $x_n$ is Cauchy, thus it tends to a limit $x\in M$ by completeness, so there is some $U\in\mathscr U$ such that $x\in U$, so $\exists r>0$ such that $D_r(x)\subset U$, which provides a finite subcover for $A_n$ where $n$ is large enough.
+\end{proof}
+\begin{remark}
+    We have a new proof of Bolzano-Weierstrass now!
+    We can also have a new proof of Theorem \ref{tycho_finite} for metric spaces.\\
+    However, the equivalence of sequentially compactness and compactness fails in both directions in general topological spaces.
+\end{remark}

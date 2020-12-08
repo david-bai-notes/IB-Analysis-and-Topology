@@ -1,0 +1,171 @@
+\section{Connectedness}
+An interval $I$ in $\mathbb R$ has the defining property that $\forall x,y,z,x<y<z$, then $x,z\in I\implies y\in I$.
+We know that a real continuous function maps intervals to intervals due to the intermediate value theorem.
+But it may not work if the (restricted) domain is not an interval.
+\begin{definition}
+    A topological space $X$ is disconnected if there are open $U,V\subset X$ such that $U\neq\varnothing$ and $V\neq\varnothing$ partitions $X$, that is $U\cap V=\varnothing$ and $U\cup V=X$.
+    In this case, we say $U,V$ disconnect $x$.\\
+    A topological space $X$ is connected if it is not disconnected.
+\end{definition}
+\begin{lemma}\label{image_connected}
+    The image of continuous function on connected space is connected.
+\end{lemma}
+\begin{proof}
+    Suppose $f:X\to Y$ is continuous.
+    Note that if we consider $f$ as $f:X\to\operatorname{Im}f$ then it is still continuous.
+    Then if $U,V$ disconnect $\operatorname{Im}f$, then $f^{-1}(U),f^{-1}(V)$ disconnect $X$.
+\end{proof}
+\begin{theorem}\label{connected_eqv}
+    For a topological space $X$, the followings are equivalent:\\
+    1. $X$ is connected.\\
+    2. If $f:X\to\mathbb R$ is continuous, then $f(X)$ is an interval.\\
+    3. Every continous function $f:X\to D$, where $D$ is discrete and $|D|\ge 2$, is constant.
+    \footnote{Most of the time we take $D=\mathbb Z$}
+\end{theorem}
+\begin{proof}
+    $1\implies 2$: Obvious due to the preceding lemma and the trivial fact that an open set in $\mathbb R$ is connected if and only if it is an interval.\\
+    $2\implies 3$: Immediate, also from the preceding lemma.\\
+    $3\implies 1$: We shall prove the contrapositive.
+    Suppose that $U,V$ disconnects $X$, then choose $d,e\in D$ with $d\neq e$, then the function $f$ defined by
+    $$f(x)=
+    \begin{cases}
+        d\text{, if $x\in U$}\\
+        e\text{, otherwise, that is if $x\in V$}
+    \end{cases}$$
+    is continuous but is not constant, contradiction.
+\end{proof}
+\begin{example}
+    1. $\varnothing$ and singletons are connected.\\
+    2. Any indiscrete topological space is connected.\\
+    3. The cofinite topology on an infinite set is connected.\\
+    4. The discrete topology is disconnected if it is not a singleton.
+\end{example}
+\begin{lemma}
+    A subspace $Y\subset X$ is disconnected if and only if there are open sets $U,V\in X$ such that $U\cap Y\neq\varnothing, V\cap Y\neq\varnothing, U\cap V\cap Y=\varnothing, Y\subset U\cup V$.
+\end{lemma}
+\begin{proof}
+    Trivial.
+\end{proof}
+\begin{proposition}\label{closure_connected}
+    Let $Y$ be a connected subspace of $X$, then $\bar Y$ is connected.
+\end{proposition}
+\begin{proof}
+    Assume not, then by the preceding lemma, there exists open sets $U,V$ in $X$ such that $U\cap\bar Y\neq\varnothing, V\cap\bar Y\neq\varnothing, U\cap V\cap\bar Y=\varnothing, \bar Y\subset U\cup V$.
+    It follows that $U\cap V\cap Y=\varnothing, Y\subset U\cup V$, so we must have, WLOG, $U\cap Y=\varnothing$, then $Y\subset X\setminus U\implies\bar Y\subset X\setminus U\implies \bar Y\cap U=\varnothing$, contradiction.
+\end{proof}
+\begin{remark}
+    1. Alternatively, we can use the third part of Theorem \ref{connected_eqv}.
+    2. In fact, for any $Z$ with $Y\subset Z\subset\bar Y$ is connected since the closure of $Z$ is $\bar Y$.
+\end{remark}
+\begin{proof}[Alternative proof of Lemma \ref{image_connected}]
+    Let $f:X\to Y$ be continuous, for convenience we can just assume $f$ is surjective using the same argument as the original proof, then consider any continuous $g:Y\to\mathbb Z$, then $g\circ f$ is continuous hence constant since $f$ is connected, but $f$ is surjective, so $g$ is constant, then it is done by Theorem \ref{connected_eqv}.
+\end{proof}
+\begin{remark}
+    1. Connectedness is a topological property.\\
+    2. If $f:X\to Y$ is continuous and $A\subset X$ and $A$ is connected, then $f(A)$ is connected.
+\end{remark}
+\begin{corollary}
+    If $X$ is connected and $R$ an equivalence relation on $X$, then $X/R$ is connected.
+\end{corollary}
+\begin{proof}
+    The quotient map is continuous and surjective.
+\end{proof}
+\begin{example}
+    let $Y=\{(x,\sin(1/x)):x>0\}\subset\mathbb R^2$ is connected since it is the image of $f(x)=(x,\sin(1/x))$, which is continuous since its components are connected, over $\mathbb R_{>0}$.\\
+    By Proposition \ref{closure_connected}, $\bar Y=Y\cup(\{0\}\times [-1,1])$ is also connected.
+    This is called the Topologist's Sine Wave.
+\end{example}
+\begin{lemma}\label{union_connected}
+    Let $\mathscr A$ be a family of connected subset of a topological space $X$ such that $\forall A,B\in\mathscr A,A\cap B=\varnothing$, then $\bigcup_{A\in\mathscr A}A$ is connected.
+\end{lemma}
+\begin{proof}
+    Suppose $f:\bigcup_{A\in\mathscr A}A\to\mathbb Z$ is connected, then $f|_A$ is continuous for any $A\in\mathscr A$, thus it is constant, say it is $n_A$, then $\forall A,B\in\mathscr A$, then $n_A=n_B$ since $A\cap B\neq\varnothing$.
+    Thus $f$ is constant, hence $\bigcup_{A\in\mathscr A}A$ is connected.
+\end{proof}
+\begin{proposition}
+    If $X,Y$ are connected, so is $X\times Y$.
+\end{proposition}
+\begin{proof}
+    Observe that $\forall x\in X,\{x\}\times Y\cong Y$ is connected and $\forall y\in Y, X\times \{y\}\cong X$ is connected as well, so since $(x,y)\in (\{x\}\times Y)\cap(X\times \{y\})\neq\varnothing$, by the preceding lemma $A_{x,y}=(\{x\}\times Y)\cup(X\times \{y\})$ is connected.
+    Now obviously $(x,y')\in A_{x,y}\cap A_{x',y'}\neq\varnothing$, so $X\times Y=\bigcup_{x\in X,y\in Y}A_{x,y}$ is connected by the preceding lemma.
+\end{proof}
+\begin{definition}
+    Let $X$ be a topological space, we define an equivalence relation $R$ by $xRy$ if and only if there is a connected $U\subset X$ such that $x,y\in U$.
+    One can check that this is an equivalence relation by Lemma \ref{union_connected}, and the partition of $X$ by $R$ is called the connected components of $X$.
+\end{definition}
+Let $C_x$ be the equivalence class containing $x$.
+\begin{proposition}
+    Connected components are nonempty and are maximal (wrt inclusion) connected subset of $X$, also they are closed.
+\end{proposition}
+\begin{proof}
+    Let $C$ be a connected component, so it is the equivalence class of some $x$, so $C=C_x$, so $C$ is nonempty since it contains $X$.
+    So given $y\in C$, $\exists A_y\ni x,y$ such that $U$ is connected.
+    $A_y\in C$ by definition of the relation.
+    Now $\forall y,z\in C, x\in A_y\cap A_z\neq\varnothing$, therefore by Lemma\ref{union_connected}, hence $C=\bigcup_{y\in C}A_y$ is connected.\\
+    If $C\subset D$ and $D$ is connected, then $\forall y\in D$, $x,y\in D$, thus since $D$ is connected $y\in C$, so $D\subset C\implies C=D$.\\
+    Hence since $\bar C$ is connected and contains $C$, by maximality $C=\bar C$, therefore $C$ is closed.
+\end{proof}
+\begin{definition}
+    A topological space $X$ is called path-connected if $\forall x,y\in X,\exists\gamma:[0,1]\to X$ continuous, $\gamma(0)=x,\gamma(1)=y$.
+\end{definition}
+\begin{theorem}
+    Any path-connected space is connected.
+\end{theorem}
+\begin{proof}
+    Suppose not, then $X$ is path-connected but not connected, so there are open $U,V$ disconnects $X$.
+    Then fixing $x\in U,y\in V$, there exists a continuous $\gamma:[0,1]\to X$ such that $\gamma(0)=x,\gamma(1)=y$.
+    Thus $\gamma^{-1}(U),\gamma^{-1}(V)$ are nonempty, open, and partitions $[0,1]$, thus $[0,1]$ is disconnected by them, which is a contradiction.
+\end{proof}
+The converse, however, is not true.
+\begin{example}
+    Take the Topologist's Sine Wave, $X=\{(x,\sin(1/x)):x>0\}\cup(\{0\}\times [-1,1])$.
+    We have already shown it is connected.
+    But it is not path-connected.
+    Indeed, pick points $(0,0),(1,\sin(1))\in X$.
+    Assume that $\gamma:[0,1]\to X$ is continuous and $\gamma(0)=(0,0)=x,\gamma(1)=(1,\sin(1))=y$.
+    Let $\gamma_1,\gamma_2$ be the components of $\gamma$, which are continuous.
+    For $\gamma_1(t)>0$, then $[0,\gamma_1(t)]\subset \gamma_1([0,t])$ by IVT, so $\exists n\in\mathbb N,(2\pi n)^{-1},(2\pi n+\pi/2)^{-1}\in (0,\gamma_1(t))\subset \gamma_1([0,t])$.
+    So there is some $a,b$ with $\gamma_1(a)=(2\pi n)^{-1},\gamma_1(b)=(2\pi n+\pi/2)^{-1}$, hence $\gamma_2(a)=0,\gamma_2(b)=1$, so we can thus find a sequence $1>t_1>t_2>\cdots>0$ with
+    $$\gamma_2(t_n)=
+    \begin{cases}
+        1\text{, if $n$ is even}\\
+        0\text{, otherwise}
+    \end{cases}$$
+    So $t_n$ converges but $\gamma_2(t_n)$ does not.
+    This is a contradiction.
+\end{example}
+\begin{lemma}[Gluing Lemma]
+    Let $f:X\to Y$ be a function between topological spaces.
+    If $X=A\cup B$ where $A,B$ are closed and $f|_A,f|_B$ are continuous, then $f$ is continuous.
+\end{lemma}
+\begin{proof}
+    Given closed $V$ in $Y$,
+    $$f^{-1}(V)=(f^{-1}(V)\cap A)\cup (f^{-1}(V)\cap B)=(f|_A)^{-1}(V)\cup (f|_B)^{-1}(V)$$
+    which is closed since $A,B$ are closed.
+    Hence $f$ is continuous.
+\end{proof}
+\begin{corollary}
+    Let $X$ be a topological space.
+    Define the relation $R$ by $xRy$ if and only if there is a continuous $\gamma:[0,1]\to X$ such that $\gamma(0)=x,\gamma(1)=y$.
+    Then this is an equivalence relation.
+\end{corollary}
+\begin{proof}
+    Trivial.
+\end{proof}
+\begin{theorem}
+    Let $U\subset\mathbb R^n$ be open, then $U$ is connected if and only if $U$ is path-connected.
+\end{theorem}
+\begin{proof}
+    It suffice to show every open connected subset of $\mathbb R^n$ is path-connected.\\
+    WLOG $U\neq\varnothing$, fix $x_0\in U$, let $V$ be the path-connected component containing $x_0$.
+    We shall show that $V,U\setminus V$ are both open, so by assumption $V=U$, thus the proof will be done.\\
+    $V$ open: Since $U$ is open, for any $x\in U$, there is $r>0$ such that $D_r(x)\in U$.
+    But any ball is path connected, so $\forall x\in V,\exists r_x>0, D_{r_x}(x)\in V$, so $V$ is open.\\
+    $U\setminus V$ open: Fix by the same proof as above, any path-connected components in $V$ is open, so since $U\setminus V$ is the union of some of them (the ones except $V$), it is open.
+\end{proof}
+\begin{example}
+    For $n\ge 2$, $\mathbb R^n$ is not homeomorphic to $\mathbb R$.
+    Assume $f:\mathbb R^n\to \mathbb R$ is a homeomorphism.
+    Fix $x\in\mathbb R^n$, and let $y=f(x)$, then $f|_{\mathbb R^n\setminus\{x\}}$ is still a homeomorphism to $\mathbb R\setminus\{y\}$.
+    But then $\mathbb R^n\setminus\{x\}$ is connected by the preceding theorem, but $\mathbb R\setminus\{y\}$ is not, contradiction.
+\end{example}

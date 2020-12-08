@@ -1,0 +1,329 @@
+\section{Topological Spaces}
+\begin{definition}
+    Consider a set $X$.
+    A topology $\tau$ is a collection of subsets of $X$ such that the following axioms hold:\\
+    1. $\varnothing, X\in\tau$.\\
+    2. $\forall i\in I,U_i\in\tau\implies \bigcup_{i\in I}U_i\in\tau$.\\
+    3. $U,V\in\tau\implies U\cap V\in\tau$.\\
+    A topological space is a pair $(X,\tau)$ where $X$ is a set and $\tau$ is a topology on $X$.
+\end{definition}
+Note that the third axiom can be extended to any finite set of elements of $\tau$.\\
+Members of $\tau$ are called open sets of $X$.
+\begin{example}
+    For any metric space, we can induce the metric topology by Proposition \ref{metric_topology}.
+    For example, the Euclidean distance on $\mathbb R^n$ induce the usual topology on $\mathbb R^n$.
+\end{example}
+\begin{definition}
+    A topological space $X$ (or the topology of $X$) is called metrizable if it can be induced by some metric on $X$.
+\end{definition}
+In the case where the topology is metrizable, any other metric that is equivalent to the previous metric gives the same topology.
+\begin{example}
+    The indiscrete topology on a set $X$ is $\{\varnothing, X\}$.
+\end{example}
+\begin{definition}
+    Give topologies $\tau_1,\tau_2$ on $X$, we say $\tau_1$ is coarser than $\tau_2$ or $\tau_2$ is finer than $\tau_1$ if $\tau_1\subset\tau_2$.
+\end{definition}
+We know that the indiscrete topology is coarser than any topology on $X$.
+It is then immediate that if $|X|\ge 2$, then the indiscrete topology is not metrizable.
+Indeed, suppose $x,y\in X$, the open ball $D_{d(x,y)}(x)$, then it contains $x$ but not $y$ and is open under the metric topology under $d$, so $d$ cannot induce the indiscrete topology on $X$.
+\begin{example}
+    The discrete topology on a set $X$ is $\tau=2^X$.
+    This is metrizable.
+    Indeed, it can be induced by the discrete metric.
+    It is also the finest topology on $X$.
+\end{example}
+\begin{example}
+    The cofinite topology on a set $X$ consists of all subsets of $X$ whose complement is finite and the empty set.
+    When $X$ is finite, this topology is just the discrete topology.
+    If it is infinite, it is not metrizable.
+    Fix $x\neq y\in X$, whenever there is open sets $U,V$ such that $x\in U, y\in V$, we know that $X\setminus(U\cap V)$ is finite, thus $U\cap V$ is not empty, but it would mean that the topological space that is not Hausdorff (which we will define below), but any metric space is (also below), so it is not metrizable.
+\end{example}
+\begin{definition}
+    A topological space $X$ is called Hausdorff if any two distinct elements $x,y$ in $X$, there are open sets $U,V$ such that $x\in U,y\in V$ and $U\cap V=\varnothing$.
+\end{definition}
+\begin{proposition}
+    Any metric space is Hausdorff.
+\end{proposition}
+\begin{proof}
+    Consider $U=D_{d(x,y)/2}(x),V=D_{d(x,y)/2}(y)$, they obviously contain $x,y$ respectively and have empty intersection due to triangle inequality.
+\end{proof}
+\begin{definition}
+    A subset of $X$ is called closed if its complement is open.
+\end{definition}
+This coincides with the definition of closed sets in a metric space by Lemma \ref{metric_complement}.
+\begin{proposition}
+    1. $\varnothing,X$ are closed\\
+    2. If $A_i$ is closed for all $i\in I$, then $\bigcap_{i\in I}A_i$ is closed.\\
+    3. If $A,B$ are closed, then $A\cup B$ is closed.
+\end{proposition}
+\begin{proof}
+    Trivial.
+\end{proof}
+Again the last one can be generalized to any finite indices.
+\begin{example}
+    In cofinite topology, a subset is closed if and only if it is finite.
+\end{example}
+\begin{definition}
+    For a topological space $X$, $x\in X$ and $U\subset X$.
+    We say $U$ is a neighbourhood of $x$ if $\exists V\subset X$ open such that $x\in V\subset U$.
+\end{definition}
+Note again that in a metric space, this reduced to our previous definition.
+The proof of this is trivial.
+\begin{proposition}
+    Let $U\subset X$, then $U$ is open if and only if every $x\in U$ has a neighbourhood contained in $U$.
+\end{proposition}
+\begin{proof}
+    Completely trivial.
+\end{proof}
+\begin{definition}
+    A sequence $(x_n)\in X$ converges to some $x\in X$, or $x_n\to x$, if for any neighbourhood $V$ of $x$, $\exists N\in\mathbb N,\forall n>N, x_n\in V$.
+\end{definition}
+This again and again coincides with previous definition in metric spaces by Proposition \ref{metric_nbhdconv}.
+\begin{example}
+    In a indiscrete space, any sequence converge to any element.
+\end{example}
+\begin{theorem}
+    In a Hausdorff space, limits are unique.
+\end{theorem}
+\begin{proof}
+    If $x_n\to x$ and $x_n\to y$ but $x\neq y$, then there are disjoint open sets $U,V$ containing $x,y$ respectively.
+    But then there is some $N_1\in\mathbb N,\forall n>N, x_n\in U$, and there is also some $N_2\in\mathbb N,\forall n>N, x_n\in V$, but then for any $n>\max\{N_1,N_2\}$, $x_n\in U\cap V=\varnothing$, contradicion.
+\end{proof}
+\begin{remark}
+    In a metric space, $A$ is closed if and only if whenever $x_n$ converges in the metric space, then its limit is in $A$.
+    The $\implies$ part is true in all topological space, but not necessarily $\impliedby$.
+\end{remark}
+\begin{definition}
+    Let $X$ be a topological space and $A\subset X,x\in X$.
+    $x$ is called an accumulation point (aka limit point/cluster point) of $A$ if for any neighbourhood $U$ of $x$, $(A\setminus\{x\})\cap U\neq\varnothing$.\\
+    The derived set $A'$ of $A$ is the set of all accumulation points of $A$.
+\end{definition}
+\begin{example}
+    In $\mathbb R$, suppose $A=[0,1)\cup \{2\}$, then $A'=[0,1]$.
+    Also $\mathbb Q'=\mathbb R$, and $\mathbb Z'=\varnothing$.
+\end{example}
+\begin{proposition}
+    Let $X$ be a topological space and $A\subset X$, then $A$ is closed if and only if $A'\subset A$.
+\end{proposition}
+\begin{proof}
+    If $A$ is closed, then $U=X\setminus A$ is open, so for any $x\in X\setminus A$, $U$ is a neighborhood of $x$ but $U\cap A=\varnothing$, so every accumulation points of $A$ are inside of $A$.\\
+    Conversely, given $x\in X\setminus A$, then $x\notin A'$, so there is a neighbourhood $U$ of $x$ with $U\cap A=\varnothing$, so $x\in U\subset X\setminus A$, so $X\setminus A$ is open, hence $A$ is closed.
+\end{proof}
+\begin{definition}
+    Let $A$ be a subset of a topological space $X$, then the interior of $A$, $\operatorname{int}A$ or $A^\circ$ is defined by
+    $$\operatorname{int}A=\bigcup_{U\subset A\text{, $U$ open}}U$$
+    The closure, $\operatorname{cl}A$ or $\bar A$, is defined by
+    $$\operatorname{cl}A=\bigcap_{A\subset F\text{, $F$ closed}}F$$
+\end{definition}
+Note that $A^\circ\subset A\subset\bar{A}$, and $A^\circ =A$ if and only if $A$ is open, $\bar A=A$ if and only if $A$ is closed.
+\begin{proposition}
+    \begin{align*}
+        A^\circ&=\{x\in X:\text{$A$ is a neighbourhood of $x$}\}\\
+        \bar{A}&=\{x\in X:\text{$\forall U\subset X$ such that $U$ is a neighbourhood of $x$, $U\cap A=\varnothing$}\}\\
+        &=A\cup A'
+    \end{align*}
+\end{proposition}
+\begin{proof}
+    Trivial.
+\end{proof}
+\begin{example}
+    In $\mathbb R$, $\overline{[0,1)\cup\{2\}}=[0,1]\cup\{2\}$, $([0,1)\cup\{2\})^\circ=(0,1)$, $\bar{\mathbb{Q}}=\mathbb R, \mathbb Q^\circ=\varnothing=\mathbb Z^\circ, \bar{\mathbb Z}=\mathbb Z$.
+\end{example}
+\begin{remark}
+    Convergent sequences determine the metric topology, since $x\in\bar{A}\iff \exists (x_n)\in A, x_n\to x$.
+    Again we have the $\impliedby$ direction for all topological spaces but not necessarily for the $\implies$ direction.
+\end{remark}
+\begin{definition}
+    Let $X$ be a topological space and $A\subset X$.
+    We say $A$ is dense if $\bar{A}=X$.\\
+    We say $X$ is seperable if there is a countable dense set in $X$.
+\end{definition}
+\begin{definition}
+    1. $\mathbb R^n$ is seperable since $\bar{\mathbb Q^n}$.
+    2. (non-example) An uncountable set in the discrete topology is not seperable.
+\end{definition}
+As usual we can try to construct new spaces from old.
+\begin{definition}
+    Let $(X,\tau)$ be a topological space and $Y\subset X$.
+    The subspace (or relative) topology on $Y$ is the collection $\{U\cap Y:U\in\tau\}$.
+    This is also called the topology on $Y$ induced by $\tau$.
+\end{definition}
+One can check that this is indeed a topology.
+\begin{example}
+    Let $X=\mathbb R$, $Y=[0,2]$, then $U=(1,2]$ is open in $Y$ since $U=Y\cap (1,3)$.
+    Note that $U$ is not open in $X$.
+\end{example}
+\begin{remark}
+    1. If $Z\subset Y\subset X$, then the topology on $Z$ induced by the topology on $X$ is the topology on $Z$ induced by the topology on $Y$ which is induced by the topology on $X$.
+    So the subspace of a subspace is a subspace.\\
+    2. If $N\subset M$ where $N,M$ are metric spaces, then the metric on $N$ induced by the metric on $M$ induces the metric topology on $N$ induced by the metric topology on $M$.
+\end{remark}
+\begin{proposition}
+    Let $Y$ be the subspace of a topological space $X$.\\
+    1. $A\subset Y$ is closed in $Y$ if and only if there is closed set $B\subset X$ such that $B\cap Y=A$.\\
+    2. $\forall A\subset Y, \bar{A}^Y=Y\cap\bar{A}^X$.
+\end{proposition}
+\begin{remark}
+    The analogy of $2$ on interiors does not always work.
+    Take $X=\mathbb R,Y=\{0\}$.
+\end{remark}
+\begin{proof}
+    Trivial.
+\end{proof}
+\begin{definition}
+    A base for a topological space $(X,\tau)$ is a family $\mathscr B\subset\tau$ such that $\forall U\in\tau,\exists \mathscr C\subset\mathscr B$ such that
+    $$U=\bigcup_{B\in\mathscr C}B$$
+\end{definition}
+In other words, the topology $\tau$ consists of the arbitrary unions of some family of open sets which is a subset of $\mathscr B$.
+So a base determines topology.
+\begin{example}
+    1. The set of all open intervals is a base of the usual topology on $\mathbb R$.
+    In general, the collection of all open balls in a metric space is a base for the metric topology on it.
+\end{example}
+However, what we want to do is not to construct $\mathscr B$ from $\tau$, but the other way around.
+\begin{lemma}
+    let $X$ be a set and $\mathscr B\subset 2^X$.
+    Assume that\\
+    1. $X=\bigcup_{B\in\mathscr B}B$.\\
+    2. $\forall B_1,B_2\in\mathscr B,\forall x\in B_1\cap B_2, \exists B\in\mathscr B,x\in B\subset B_1\cap B_2$.\\
+    Then there is an unique topology on $X$ that is generated by the base $\mathscr B$.
+\end{lemma}
+\begin{proof}
+    We must have the topology
+    $$\tau=\left\{\bigcup_{B\in\mathscr C}B:\mathscr C\subset\mathscr B\right\}$$
+    It is immediate that $\tau$ is a topology on $X$.
+    Indeed, $\varnothing,X\in\tau$ and it is closed under arbitrary union.
+    For intersection, consider
+    $$U_1=\bigcup_{B\in\mathscr C_1}B,U_2=\bigcup_{B\in\mathscr C_2}B$$
+    Given $x\in U_1\cap U_2$, so $\exists B_1\in\mathscr C_1, B_2\in\mathscr C_2$, so there is some $B_x\in\mathscr B$ such that $x\in B_x\subset B_1\cap B_2\subset U_1\cap U_2$, thus
+    $$U_1\cap U_2=\bigcup_{x\in U_1\cap U_2}B_x$$
+    By definition $\mathscr B$ is a base for $\tau$.
+\end{proof}
+\begin{definition}
+    A topological space is called second-countable if it has a countable base.
+\end{definition}
+\begin{example}
+    The set of all open balls of rational radii and centres is a countable base for $\mathbb R^n$.
+    So $\mathbb R^n$ is seond-countable.
+\end{example}
+\begin{definition}
+    A map $f:(X,\tau)\to (Y,\rho)$ is continuous if $V\in\rho\implies f^{-1}(V)\in\tau$.
+\end{definition}
+This extends our previous defintion of continuity in metric space by Proposition \ref{metric_preimage}.
+\begin{proposition}
+    Let $f:X\to Y$ be a map between topological spaces, then\\
+    1. $f$ is continuous if and only if the preimage of any closed set is closed.\\
+    2. If $\mathscr B$ is a base for $Y$, then $f$ is continuous if and only if for all $B\in\mathscr B$, $f^{-1}(B)$ is open in $X$.\\
+    3. Composition of continous functions is continuous.
+\end{proposition}
+\begin{proof}
+    Trivial.
+\end{proof}
+\begin{example}
+    Constant, identity and inclusion are always continuous.
+    Hence the restriction of a continuous map is continuous.
+\end{example}
+\begin{definition}
+    Let $f:X\to Y$ be a map between topological spaces, then we say $f$ is a homeomorphism if $f$ is a bijection and both $f,f^{-1}$ are continuous.
+    We say $X,Y$ are homeomorphic, or $X\cong Y$, if there is a homeomorphism between them.
+\end{definition}
+\begin{definition}
+    $f$ is a open map if for every $U$ open in $X$, $f(U)$ is open in $Y$.
+    So $f$ is a homeomorphism if and only if $f$ is a continuous open bijection.
+\end{definition}
+\begin{definition}
+    A property $P$ of topological spaces is called a topological property if it is preserved under homeomorphisms.
+\end{definition}
+\begin{definition}
+    Let $(X,\tau),(Y,\rho)$ be topological spaces and let
+    $$\mathscr B=\{U\times V:U\in\tau, V\in\rho\}$$
+    Then $X\times Y\in\mathscr B$ and $U_1\times V_1\cap U_2\times V_2=(U_1\cap U_2)\times (V_1\times V_2)\in\mathscr B$.
+    Thus there is an unique topology on $X\times Y$ with base $\mathscr B$.
+    This is called the product topology.
+\end{definition}
+So a set $W$ in the product topological space is open if and only if $\forall (x,y)\in W,\exists U\in\tau, V\in\rho, x\in U\times V\subset W$.
+\begin{example}
+    $\mathbb R^2$ in the usual topology is homeomorphic to $\mathbb R\times\mathbb R$ in the product topology.
+    In general, the topology induced by the ($p$-)product metric is the product topology of metric topologies.
+    So products of metrizable topologies are metrizable.
+\end{example}
+\begin{proposition}
+    Consider $\pi_X:X\times Y\to X,\pi_Y:X\times Y\to Y$ be the projections.
+    Then $\pi_X,\pi_Y$ are continuous and if $Z$ is a topological space, and $f:Z\to X\times Y$ is continuous if and only if $\pi_X\circ f,\pi_Y\circ f$ are both continuous.
+\end{proposition}
+Note that $f(z)=(\pi_X\circ f(z),\pi_Y\circ f(z))$.
+\begin{proof}
+    Given an open set $U\subset X$, $\pi_X^{-1}(U)=U\times Y$, which is open in $X\times Y$, so $\pi_X$ is continuous.
+    Similarly, $\pi_Y$ is continuous.\\
+    Given such an $f$, if $f$ is continuous, then both of $\pi_X\circ f,\pi_Y\circ f$ are continuous since composition of continuous functions is continuous.
+    Conversely, if both of $\pi_X\circ f,\pi_Y\circ f$ are continuous, then it is enough to check that any member of the base $U\times V\subset X\times Y$ has an open preimage.
+    Indeed,
+    \begin{align*}
+        f^{-1}(U\times V)&=f^{-1}(U\times Y)\cap f^{-1}(X\times V)\\
+        &=f^{-1}(\pi_X^{-1}(U))\cap f^{-1}(\pi_Y^{-1}(V))\\
+        &=(\pi_X\circ f)^{-1}(U)\cap (\pi_Y\circ f)^{-1}(V)
+    \end{align*}
+    which is open by assumption.
+\end{proof}
+It is trivial to extend all the above to finite products.
+It is interesting to know that $(X\times Y)\times Z\cong X\times (Y\times Z)$, and $X\times Y\cong Y\times X$.
+%But how about arbitrary products?
+Now we turns to quotient topology.
+\begin{definition}
+    Start with a topological space $(X,\tau)$ and let $R$ be an equivalence relation on $X$.
+    We let $X/R$ be the set of equivalence classes (the ``quotient set'').
+    Let $q:X\to X/R$ be the quotient map sending $x\mapsto [x]$ where $[x]=\{y\in X:yRx\}$ is the equivalence class containing $x$.
+    The quotient topology on $X/R$ is the family
+    $$\tau_R=\{V\subset X/R:q^{-1}(V)\in\tau\}$$
+\end{definition}
+\begin{proposition}
+    the quotient topology is indeed a topology.
+\end{proposition}
+\begin{proof}
+    $q^{-1}(X/R)=X,q^{-1}(\varnothing)=\varnothing$, so $\varnothing,X\in\tau_R$.
+    $$\forall (V_i)_{i\in I}\in\tau_R,q^{-1}\left(\bigcup_{i\in I}V_i\right)=\bigcup_{i\in I}q^{-1}(V_i)$$
+    which is open.
+    $$\forall U,V\in\tau_R,q^{-1}(U\cap V)=q^{-1}(U)\cap q^{-1}(V)$$
+    which is also open.
+\end{proof}
+\begin{remark}
+    1. Note that $q$ is surjective and continuous under $\tau_R$.\\
+    2. For $x\in X,t\in X/R, x\in t\iff q(x)=t$, hence
+    $$\forall V\subset X/R,q^{-1}(V)=\{x\in X:q(x)\in V\}=\{x\in X:\exists t\in V, q(x)=t\}=\bigcup_{t\in V}t$$
+\end{remark}
+\begin{example}
+    $\mathbb Q\le\mathbb R$ as (additive) groups, so $\mathbb R/\mathbb Q$ gives a equivalence relation.
+    So we can induce a quotient topology on $\mathbb R/\mathbb Q$, which immediately we can find to be the indiscrete topology which is not metrizable, which is why we do not do quotients in metric spaces.
+\end{example}
+Consider $q:X\to X/R$ the quotient map and any map $f:X\to Y$ such that $xRy\implies f(x)=f(y)$, then there is a map $\tilde{f}:X/R\to Y$ such that $\tilde{f}\circ q=f$.
+That is, the following diagram commutes.
+$$
+\begin{tikzcd}
+    X\arrow{r}{f}\arrow[swap]{d}{q}&Y\\
+    X/R\arrow[swap,dashed]{ur}{\tilde{f}}&
+\end{tikzcd}
+$$
+If $f$ is surjective, so is $\tilde{f}$.
+Also, if $f(x)=f(y)\iff xRy$, then $\tilde{f}$ is injective.
+\begin{proposition}
+    Let $X,Y$ be topological spaces, $R$ an equivalence relation on $X$, $q:X\to X/R$ the quotient map, $f:X\to Y$ some map with $xRy\implies f(x)=f(y)$, then let $\tilde{f}$ be as above, then\\
+    1. If $f$ is continuous so is $\tilde{f}$.\\
+    2. If $f$ is an open map so is $\tilde{f}$.
+\end{proposition}
+\begin{proof}
+    1. Let $V$ be open in $Y$, then $f^{-1}(V)$ is open in $X$, so $q^{-1}(\tilde{f}^{-1}(V))=f^{-1}(V)$ is open, so $\tilde{f}^{-1}(V)$ is open, hence $\tilde{f}$ is continuous.\\
+    2. Given open $V\in X$, $U=q^{-1}(V)$ is open in $X$, and $V=q(U)$, so $\tilde{f}(V)=f(U)$ which is open.
+\end{proof}
+\begin{corollary}
+    If $f(x)=f(y)\iff xRy$, $f$ is surjective, continuous and open, then $\tilde{f}$ is a homeomorphism.
+\end{corollary}
+\begin{remark}
+    Work ``upstairs''!
+\end{remark}
+\begin{example}
+    Take $\mathbb R/\mathbb Z$ where the equivalence relation is as if they are additive groups.
+    $\mathbb R/\mathbb Z\cong S^1=\{z\in\mathbb C:|z|=1\}$.
+    Indeed, consider the map $f(t)=e^{2\pi it}$, then the induced $\tilde{f}$ is a homeomorphism by the preceding corollary.
+    If $f$ is not open, then there is some open $U\in\mathbb R$ such that $f(U)$ is not open.
+    $\exists (z_n)\in S^1\setminus f(U)$ such that $z_n\to z$, then due to surjectivity we know that there is some $x\in U$ such that $f(x)=z$ and $(x_n)\in [x-1/2,x+1/2]$ such that $f(x_n)=z_n$ and we know that $x_n\notin U$, but $x_n$ has a convergent subsequence $(x_{k_n})\to y\in \mathbb R\setminus U$ which is closed, so due to continuity we must have $f(x)=f(y)\implies x-y\in\mathbb Z\implies x=y\notin U$, which is a contradiction.
+\end{example}
